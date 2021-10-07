@@ -111,45 +111,81 @@ public class Medecin {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Getter de l'adresse du médecin
+	 * @return adresse du médecin
 	 */
 	public String getAdresse() {
 		return adresse;
 	}
 
+	/**
+	 * Setter de l'adresse du médecin
+	 * @param adresse nouvelle adresse du médecin
+	 */
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
 
+	/**
+	 * Getter du numéro de téléphone du médecin
+	 * @return numéro de téléphone du médecin
+	 */
 	public String getTelephone() {
 		return telephone;
 	}
 
+	/**
+	 * Setter du numéro de téléphone du médecin
+	 * @param telephone nouveau numéro de téléphone du médecin
+	 */
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 
+	/**
+	 * Getter du potentiel du médecin
+	 * @return potentiel du médecin
+	 */
 	public String getPotentiel() {
 		return potentiel;
 	}
 
+	/**
+	 * Setter du potentiel du médecin
+	 * @param potentiel nouveau potentiel du médecin
+	 */
 	public void setPotentiel(String potentiel) {
 		this.potentiel = potentiel;
 	}
 
+	/**
+	 * Getter de la spécialité du médecin
+	 * @return spécialité du médecin
+	 */
 	public String getSpecialite() {
 		return specialite;
 	}
 
+	/**
+	 * Setter de la spécialité du médecin
+	 * @param specialite nouvelle spécialité du médecin
+	 */
 	public void setSpecialite(String specialite) {
 		this.specialite = specialite;
 	}
 
+	/**
+	 * Getter de la localité du médecin
+	 * @return localité du médecin
+	 */
 	public Localite getUneLocalite() {
 		return uneLocalite;
 	}
 
+	/**
+	 * Setter du la localité du médecin
+	 * @param uneLocalite nouvelle localité du médecin
+	 */
 	public void setUneLocalite(Localite uneLocalite) {
 		this.uneLocalite = uneLocalite;
 	}
