@@ -1,8 +1,6 @@
 /*
  * Créé le 22 févr. 2015
  *
- * TODO Pour changer le modèle de ce fichier généré, allez à :
- * Fenêtre - Préférences - Java - Style de code - Modèles de code
  */
 package gsb.vue;
 
@@ -20,9 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
- * @author Isabelle 22 févr. 2015 TODO Pour changer le modèle de ce commentaire
- *         de type généré, allez à : Fenêtre - Préférences - Java - Style de
- *         code - Modèles de code
+ * @author Isabelle 22 févr. 2015
  */
 public class MenuPrincipal extends JFrame implements ActionListener {
 
@@ -90,7 +86,6 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		// TODO Raccord de méthode auto-généré
 		if (evt.getSource() instanceof JMenuItem) {
 			String ChoixOption = evt.getActionCommand();
 
