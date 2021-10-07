@@ -37,7 +37,7 @@ public class Medecin {
 	/**
 	 * Localite du Médecin
 	 */
-	protected Localite uneLocalite;
+	protected Localite laLocalite;
 	
 	/**
 	 * Constructeur du Médecin
@@ -48,10 +48,10 @@ public class Medecin {
 	 * @param telephone téléphone du médecin
 	 * @param potentiel potentiel du médecin
 	 * @param specialite spécialité du médecin
-	 * @param uneLocalite Localite du médecin
+	 * @param laLocalite Localite du médecin
 	 */
 	public Medecin(String codeMed, String nom, String prenom, String adresse, String telephone, String potentiel,
-			String specialite, Localite uneLocalite) {
+			String specialite, Localite laLocalite) {
 		this.codeMed = codeMed;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -59,7 +59,7 @@ public class Medecin {
 		this.telephone = telephone;
 		this.potentiel = potentiel;
 		this.specialite = specialite;
-		this.uneLocalite = uneLocalite;
+		this.laLocalite = laLocalite;
 	}
 
 	/**
@@ -178,16 +178,16 @@ public class Medecin {
 	 * Getter de la localité du médecin
 	 * @return localité du médecin
 	 */
-	public Localite getUneLocalite() {
-		return uneLocalite;
+	public Localite getLaLocalite() {
+		return laLocalite;
 	}
 
 	/**
 	 * Setter du la localité du médecin
 	 * @param uneLocalite nouvelle localité du médecin
 	 */
-	public void setUneLocalite(Localite uneLocalite) {
-		this.uneLocalite = uneLocalite;
+	public void setLaLocalite(Localite laLocalite) {
+		this.laLocalite = laLocalite;
 	}
 	
 	
