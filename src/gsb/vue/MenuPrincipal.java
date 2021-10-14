@@ -112,5 +112,10 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		myJInternalFrame.setSize(480, 380);
 		desktopPane.add(myJInternalFrame);
 	}
+	
+	public static void main(String[] args)
+	{
+		new MenuPrincipal();
+	}
 
 }
