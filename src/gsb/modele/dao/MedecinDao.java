@@ -42,7 +42,7 @@ public class MedecinDao {
 			    collectionDesMedecins.add(MedecinDao.rechercher(codeMedecin));
 			}
 		}
-		catch (SQLException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("erreur retournerCollectionDesMedecins()");
 		}
