@@ -25,7 +25,7 @@ public class ConnexionMySql {
 	 * methode qui permet la connexion à la base de données
 	 */
 	public static void connecterBd(){
-		String url = "jdbc:mysql://192.179.1.13:3306/secolog"; // url : chaine de connexion
+		String url = "jdbc:mysql://192.179.1.13:3306/gsb"; // url : chaine de connexion
 		// try permet d'essayer de lancer la connexion
 		try {Class.forName("com.mysql.cj.jdbc.Driver"); 
 			cnx = DriverManager.getConnection(url,"usecolog","password"); 
@@ -34,6 +34,7 @@ public class ConnexionMySql {
         catch(Exception e) {  System.out.println("Echec lors de la connexion");  } 
 
 	}
+
 	
 	/**
 	 * @param laRequete requête SQL de type SELECT
