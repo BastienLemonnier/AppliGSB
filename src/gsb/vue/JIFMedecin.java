@@ -59,8 +59,8 @@ public class JIFMedecin extends JInternalFrame  {
          JLcp = new JLabel("Code postal");
          JLville = new JLabel("Ville");
          JLtelephone = new JLabel("Téléphone");
-         JLpotentiel = new JLabel("potentiel");
-         JLspecialite = new JLabel("ASpecialite");
+         JLpotentiel = new JLabel("Potentiel");
+         JLspecialite = new JLabel("Specialite");
          
          JTcode = new JTextField(20);
          JTcode.setMaximumSize(JTcode.getPreferredSize());
