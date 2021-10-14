@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
@@ -36,7 +37,7 @@ import javax.swing.event.ListSelectionListener;
  *         de type généré, allez à : Fenêtre - Préférences - Java - Style de
  *         code - Modèles de code
  */
-public class JIFMedecinListeDic extends JInternalFrame implements ActionListener {
+public class JIFMedecinListeDic extends JInternalFrame implements ActionListener, ListSelectionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -75,9 +76,9 @@ public class JIFMedecinListeDic extends JInternalFrame implements ActionListener
 			data[i][3] = uneEntree.getValue().getLaLocalite().getVille() ;
 			i++;
 			}
-		String[] columnNames = {"Code", "Nom","Prenom","Ville"};
+		String[] columnNames = {"Code", "Nom", "Prenom", "Ville"};
 		table = new JTable(data, columnNames);
-		table.getSelectionModel().addListSelectionListener(table);
+		table.getSelectionModel().addListSelectionListener(this);
 		
 		scrollPane = new JScrollPane(table);
 		scrollPane.setPreferredSize(new Dimension(400, 200));
@@ -101,17 +102,26 @@ public class JIFMedecinListeDic extends JInternalFrame implements ActionListener
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent arg0)
+	{
 		Object source = arg0.getSource();
-   		if (source == JBafficherFiche){
-   			if (diccoMedecin.containsKey(JTcodeMedecin.getText())){
+   		if (source == JBafficherFiche)
+   		{
+   			if (diccoMedecin.containsKey(JTcodeMedecin.getText()))
+   			{
    	   			Medecin unMedecin = diccoMedecin.get(JTcodeMedecin.getText());
    	   			fenetreContainer.ouvrirFenetre(new JIFMedecinFiche(unMedecin));
    			}
    		}
-   		if(source == table){
+   		
+   		if(source == table)
+   		{
    			JTcodeMedecin.setText((String)table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()));
-   			
    		}
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		JTcodeMedecin.setText((String)table.getValueAt(table.getSelectedRow(), 0));
 	}
 }

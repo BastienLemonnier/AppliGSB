@@ -22,9 +22,8 @@ public class LocaliteDao {
 		try {
 			if (reqSelection.next()) {
 				uneLocalite = new Localite(reqSelection.getString(1), reqSelection.getString(2));	
-			};
 			}
-		catch(Exception e) {
+		} catch(Exception e) {
 			System.out.println("erreur reqSelection.next() pour la requête - select * from LOCALITE where CODEPOSTAL='"+codeLocalite+"'");
 			e.printStackTrace();
 			}

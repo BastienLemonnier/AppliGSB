@@ -6,7 +6,6 @@
 package gsb.modele.dao;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import gsb.modele.Localite;
 import gsb.modele.Visiteur;
@@ -42,7 +41,7 @@ public class VisiteurDao {
 				
 				unVisiteur = new Visiteur(matricule, nom, prenom, login, mdp, adresse, laLocalite, telephone, dateEntree, prime, codeUnite, nomUnite);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

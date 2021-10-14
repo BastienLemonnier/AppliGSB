@@ -93,9 +93,11 @@ public class JIFMedecinListeCol extends JInternalFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object source = arg0.getSource();
-   		if (source == JBafficherFiche){
+   		if (source == JBafficherFiche)
+   		{
    			Medecin unMedecin = MedecinDao.rechercher(JTcodeMedecin.getText());
-   			if (unMedecin!=null){
+   			if (unMedecin!=null)
+   			{
    	   			fenetreContainer.ouvrirFenetre(new JIFMedecinFiche(unMedecin));
    			}
    		}	

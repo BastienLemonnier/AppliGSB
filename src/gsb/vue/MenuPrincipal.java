@@ -85,20 +85,23 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent evt) {
-		if (evt.getSource() instanceof JMenuItem) {
+	public void actionPerformed(ActionEvent evt)
+	{
+		if (evt.getSource() instanceof JMenuItem)
+		{
 			String ChoixOption = evt.getActionCommand();
 
-			if (ChoixOption.equals("Consultation Medecin")) {
+			if (ChoixOption.equals("Consultation Medecin"))
+			{
 				// Creation d'une sous-fenêtre
 				ouvrirFenetre(new JIFMedecinCons());
 
-			} else if (ChoixOption.equals("Liste Medecins")) {
+			}
+			else if (ChoixOption.equals("Liste Medecins"))
+			{
 				ouvrirFenetre(new JIFMedecinListeDic(this));
 			}
-
 		}
-
 	}
 
 	public void ouvrirFenetre(JInternalFrame uneFenetre) {

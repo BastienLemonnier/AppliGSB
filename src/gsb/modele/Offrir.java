@@ -27,7 +27,6 @@ public class Offrir {
 	 * @param qteOfferte
 	 */
 	public Offrir(Medicament unMedicament, Visite uneVisite, int qteOfferte) {
-		super();
 		this.unMedicament = unMedicament;
 		this.uneVisite = uneVisite;
 		this.qteOfferte = qteOfferte;
