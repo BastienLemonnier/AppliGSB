@@ -21,9 +21,9 @@ public class StockerDao {
 			if(resultat.next()) 
 			{
 				int QteStock = resultat.getInt(1);
-				Visiteur unVisiteur1 = VisiteurDao.rechercher(resultat.getString(2));
-				Medicament unMedoc1 = MedicamentDao.rechercher(resultat.getString(3));
-				unStock = new Stocker(QteStock, unVisiteur1, unMedoc1);
+				unVisiteur = VisiteurDao.rechercher(resultat.getString(2));
+				unMedoc = MedicamentDao.rechercher(resultat.getString(3));
+				unStock = new Stocker(QteStock, unVisiteur, unMedoc);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

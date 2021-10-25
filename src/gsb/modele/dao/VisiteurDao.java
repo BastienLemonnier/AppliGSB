@@ -20,7 +20,7 @@ public class VisiteurDao {
 	public static Visiteur rechercher(String matricule)
 	{
 		Visiteur unVisiteur = null;
-		String req = "SELECT * FROM Visiteur WHERE MATRICULE = '" + matricule + "' LIMIT 1;";
+		String req = "SELECT * FROM VISITEUR WHERE MATRICULE = '" + matricule + "' LIMIT 1;";
 		ResultSet resultat = ConnexionMySql.execReqSelection(req);
 		
 		try {
