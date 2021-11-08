@@ -29,7 +29,6 @@ import gsb.service.VisiteService;
 /**
  * @author LEMONNIER Bastien
  * 25 oct. 2021
- *
  */
 public class JIFVisiteListe extends JInternalFrame implements ActionListener, ListSelectionListener {
 	
