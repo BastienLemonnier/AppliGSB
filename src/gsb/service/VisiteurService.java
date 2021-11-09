@@ -7,6 +7,7 @@ package gsb.service;
 
 import gsb.modele.Visiteur;
 import gsb.modele.dao.VisiteurDao;
+import gsb.utils.ServiceUtils;
 
 /**
  * @author LEMONNIER Bastien
@@ -20,10 +21,11 @@ public class VisiteurService {
 		Visiteur unVisiteur = null;
 		try
 		{
-			if(matricule == null || matricule.length() == 0)
-			{
+			if(matricule == null)
 				throw new Exception("donnée obligatoire : matricule");
-			}
+			if(!ServiceUtils.isAMatricule(matricule))
+				throw new Exception("Le matricule ne correspond pas au format X000.");
+			
 			unVisiteur = VisiteurDao.rechercher(matricule);
 		}
 		catch(Exception e)
