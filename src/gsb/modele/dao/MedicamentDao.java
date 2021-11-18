@@ -2,6 +2,7 @@ package gsb.modele.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.TreeMap;
 
 import gsb.modele.Medicament;
 
@@ -34,4 +35,32 @@ public class MedicamentDao {
 		return unMedoc;
 	}
 	
+	public static TreeMap<String, Medicament> recuplist()
+	{
+		TreeMap<String, Medicament> lesMedicaments = new TreeMap<String, Medicament>();
+		String req = "SELECT * FROM MEDICAMENT;";
+		ResultSet resultat = ConnexionMySql.execReqSelection(req);
+		
+		try {
+			while(resultat.next())
+			{
+				String depleg = resultat.getString(1);
+				String nomCom = resultat.getString(2);
+				String compo = resultat.getString(3);
+				String effets = resultat.getString(4);
+				//String contreIndic = resultat.getString(5);
+				float prixEchant = resultat.getFloat(6);
+				String code = resultat.getString(7);
+				String libelle = resultat.getString(8);
+				
+				Medicament unMedicament = new Medicament(depleg, nomCom, compo, effets, prixEchant, code, libelle);
+				lesMedicaments.put(depleg, unMedicament);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lesMedicaments;
+	}
 }
