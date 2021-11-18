@@ -90,4 +90,15 @@ public class VisiteDao {
 		return success;
 	}
 	
+	public static boolean delete(String reference)
+	{
+		boolean success = false;
+		String req = "DELETE FROM VISITE WHERE REFERENCE='" + reference + "';";
+		if(ConnexionMySql.execReqMaj(req) == 1)
+		{
+			success = true;
+		}
+		return success;
+	}
+	
 }

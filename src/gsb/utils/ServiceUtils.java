@@ -145,6 +145,27 @@ public class ServiceUtils {
 		return isCodeMed;
 	}
 	
-	
+	public static boolean isADepotLegal(String depot)
+	{
+		boolean isDep = true;
+		
+		if(depot.length() > 10 || depot.length() < 5)
+		{
+			isDep = false;
+		}
+		else
+		{
+			for(int i = 0; i < depot.length(); i ++)
+			{
+				char unChar = depot.charAt(i);
+				if(!((unChar >= '0' && unChar <= '9') || (unChar >= 'A' && unChar <= 'Z')))
+				{
+					isDep = false;
+				}
+			}
+		}
+			
+		return isDep;
+	}
 	
 }

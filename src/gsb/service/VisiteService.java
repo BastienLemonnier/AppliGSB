@@ -116,4 +116,21 @@ public class VisiteService {
 		return VisiteDao.retournerListeVisites(matricule, date);
 	}
 	
+	public static boolean deleteVisite(String reference)
+	{
+		boolean pass = true;
+		try {
+			if(reference == null)
+				throw new Exception("Aucun paramètre ne peut être null !");
+			if(!ServiceUtils.isAReference(reference))
+				throw new Exception("La référence ne respecte pas le format A0000.");
+			if(!VisiteDao.delete(reference))
+				throw new Exception("Echec lors de la suppression.");
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			pass = false;
+		}
+		return pass;
+	}
+	
 }
