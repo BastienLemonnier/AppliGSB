@@ -40,8 +40,9 @@ public class VisiteService {
 	}
 	
 	
-	public static void ajouterVisite(Visite uneVisite)
+	public static boolean ajouterVisite(Visite uneVisite)
 	{
+		boolean pass = true;
 		try
 		{
 			if(uneVisite.getReference() == null || uneVisite.getDate() == null || uneVisite.getCommentaire() == null || uneVisite.getUnMedecin() == null || uneVisite.getUnVisiteur() == null)
@@ -64,11 +65,14 @@ public class VisiteService {
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage());
+			pass = false;
 		}
+		return pass;
 	}
 	
-	public static void majVisite(Visite uneVisite)
+	public static boolean majVisite(Visite uneVisite)
 	{
+		boolean pass = true;
 		try
 		{
 			if(uneVisite.getReference() == null || uneVisite.getDate() == null || uneVisite.getCommentaire() == null || uneVisite.getUnMedecin() == null || uneVisite.getUnVisiteur() == null)
@@ -90,7 +94,9 @@ public class VisiteService {
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage());
+			pass = false;
 		}
+		return pass;
 	}
 	
 	public static TreeMap<String,Visite> rechercherListeVisites(String matricule, String date)
