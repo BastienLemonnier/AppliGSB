@@ -8,6 +8,7 @@ package gsb.service;
 
 import gsb.modele.Medecin;
 import gsb.modele.dao.MedecinDao;
+import gsb.utils.ServiceUtils;
 
 /**
  * @author Isabelle
@@ -21,9 +22,10 @@ public class MedecinService {
 		Medecin unMedecin = null;
 		try {
 			if (unCodeMedecin == null)
-			{
 	            throw new Exception("Donnée obligatoire : code");
-	        }
+			if(!ServiceUtils.isACodeMed(unCodeMedecin))
+				throw new Exception("Le code médecin ne correspond pas au format M000.");
+			
 			unMedecin = MedecinDao.rechercher(unCodeMedecin);
 		}
 		catch(Exception e){

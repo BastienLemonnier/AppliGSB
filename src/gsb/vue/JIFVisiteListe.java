@@ -29,7 +29,6 @@ import gsb.service.VisiteService;
 /**
  * @author LEMONNIER Bastien
  * 25 oct. 2021
- *
  */
 public class JIFVisiteListe extends JInternalFrame implements ActionListener, ListSelectionListener {
 	
@@ -83,7 +82,7 @@ public class JIFVisiteListe extends JInternalFrame implements ActionListener, Li
 		//table des visites
 
 		int i = 0;
-		String[][] data = new String[nbLignes][3] ;
+		String[][] data = new String[nbLignes][3];
 		for (Map.Entry<String,Visite> uneEntree : dicoVisite.entrySet())
 		{
 			data[i][0] = uneEntree.getValue().getReference();
@@ -135,16 +134,10 @@ public class JIFVisiteListe extends JInternalFrame implements ActionListener, Li
    		{
    			fenetreContainer.ouvrirFenetre(new JIFVisiteListe(fenetreContainer, JTmatricule.getText(), JTdate.getText()));
    		}
-   		
-   		if(source == table)
-   		{
-   			System.out.println("test modif case table");
-   		}
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		System.out.println("test modif case table");
 		JTrefVisite.setText((String)table.getValueAt(table.getSelectedRow(), 0));
 	}
 }
