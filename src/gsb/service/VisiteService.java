@@ -39,6 +39,7 @@ public class VisiteService {
 		return uneVisite;
 	}
 	
+	
 	public static void ajouterVisite(Visite uneVisite)
 	{
 		try
@@ -55,6 +56,7 @@ public class VisiteService {
 				throw new Exception("Le matricule ne respecte pas le format X000.");
 			if(!ServiceUtils.isACodeMed(uneVisite.getUnMedecin().getCodeMed()))
 				throw new Exception("Le code médecin ne respecte pas le format M000.");
+			
 			
 			if(VisiteDao.ajouter(uneVisite) == false)
 				throw new Exception("Erreur lors de l'ajout de la visite en base !");
