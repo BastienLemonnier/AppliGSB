@@ -72,9 +72,16 @@ public class VisiteDao {
 	{
 		boolean success = false;
 		String req = "INSERT INTO VISITE VALUES ('" + uneVisite.getReference() + "', '" + uneVisite.getDate() + "', '" + uneVisite.getCommentaire() + "', '" + uneVisite.getUnVisiteur().getMatricule() + "', '" + uneVisite.getUnMedecin().getCodeMed() + "');";
-		if(ConnexionMySql.execReqMaj(req) == 1)
+		try
 		{
-			success = true;
+			if(ConnexionMySql.execReqMaj(req) == 1)
+			{
+				success = true;
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println("Erreur lors de l'ajout de la visite !");
 		}
 		return success;
 	}
@@ -83,20 +90,37 @@ public class VisiteDao {
 	{
 		boolean success = false;
 		String req = "UPDATE VISITE SET DATEVISITE = '" + uneVisite.getDate() + "', COMMENTAIRE = '" + uneVisite.getCommentaire() + "', MATRICULE = '" + uneVisite.getUnVisiteur().getMatricule() + "', CODEMED = '" + uneVisite.getUnMedecin().getCodeMed() + "' WHERE REFERENCE = '" + uneVisite.getReference() + "';";
-		if(ConnexionMySql.execReqMaj(req) == 1)
+		try
 		{
-			success = true;
+			if(ConnexionMySql.execReqMaj(req) == 1)
+			{
+				success = true;
+			}
 		}
+		catch (Exception e)
+		{
+			System.out.println("Erreur lors de la mise à jour d'une visite !");
+		}
+		
 		return success;
 	}
 	
 	public static boolean delete(String reference)
 	{
 		boolean success = false;
-		String req = "DELETE FROM VISITE WHERE REFERENCE='" + reference + "';";
-		if(ConnexionMySql.execReqMaj(req) == 1)
+		try
 		{
-			success = true;
+			String req = "DELETE FROM OFFRIR WHERE REFERENCE='" + reference + "';";
+			ConnexionMySql.execReqMaj(req);
+			req = "DELETE FROM VISITE WHERE REFERENCE='" + reference + "';";
+			if(ConnexionMySql.execReqMaj(req) == 1)
+			{
+				success = true;
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println("Erreur lors de la suppression de la visite !");
 		}
 		return success;
 	}

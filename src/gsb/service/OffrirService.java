@@ -5,6 +5,7 @@ import java.util.TreeMap;
 import gsb.modele.Offrir;
 import gsb.modele.dao.OffrirDao;
 import gsb.modele.dao.VisiteDao;
+import gsb.utils.ServiceUtils;
 
 public class OffrirService {
 	
@@ -13,9 +14,9 @@ public class OffrirService {
 		Offrir uneOffre =  null;
 		try {
 			if(matricule == null || matricule.length() == 0)
-			{
 				throw new Exception("Donnée obligatoire : code");
-			}
+			if(!ServiceUtils.isAMatricule(matricule))
+				throw new Exception("Le matricule ne respecte pas le format A00...");
 			uneOffre = OffrirDao.rechercher(matricule);
 		}
 		catch(Exception e)
@@ -29,7 +30,7 @@ public class OffrirService {
 	{
 		try
 		{
-			if(OffrirDao.insert(uneOffre) == 0)
+			if(!OffrirDao.insert(uneOffre))
 			{
 				throw new Exception("Echec de l'insertion de l'offre.");
 			}

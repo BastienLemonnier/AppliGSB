@@ -1,6 +1,5 @@
 package gsb.service;
 
-import java.util.HashMap;
 import java.util.TreeMap;
 
 import gsb.modele.Medicament;

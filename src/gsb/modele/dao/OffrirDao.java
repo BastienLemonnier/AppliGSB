@@ -33,13 +33,14 @@ public class OffrirDao {
 		return uneOffre;
 	}
 	
-	public static int insert(Offrir uneOffre)
+	public static boolean insert(Offrir uneOffre)
 	{
-		int success = 0;
+		boolean success = false;
 		
 		String req = "INSERT INTO OFFRIR VALUES ('" + uneOffre.getQteOfferte() + "','" + uneOffre.getUneVisite().getReference() + "','" + uneOffre.getUnMedicament().getDepotLegal() + "');";
 		
-		success = ConnexionMySql.execReqMaj(req);
+		if(ConnexionMySql.execReqMaj(req) == 1)
+			success = true;
 		
 		return success;
 	}
