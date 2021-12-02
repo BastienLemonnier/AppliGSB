@@ -20,7 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import gsb.modele.Medicament;
 import gsb.service.MedicamentService;
 
-public class JIFMedicamentListe extends JInternalFrame implements ActionListener, ListSelectionListener {
+public class JIFMedicamentFamille extends JInternalFrame implements ActionListener, ListSelectionListener {
 	
 private static final long serialVersionUID = 3630L;
 	
@@ -39,7 +39,7 @@ private static final long serialVersionUID = 3630L;
 	protected MenuPrincipal fenetreContainer;
 	protected JTable table;
 
-	public JIFMedicamentListe(MenuPrincipal uneFenetreContainer) {
+	public JIFMedicamentFamille(MenuPrincipal uneFenetreContainer) {
 
 		fenetreContainer = uneFenetreContainer;
 		
@@ -51,12 +51,13 @@ private static final long serialVersionUID = 3630L;
 		//table des visites
 
 		int i = 0;
-		String[][] data = new String[nbLignes][3];
+		String[][] data = new String[nbLignes][4];
 		for (Map.Entry<String,Medicament> uneEntree : dicoMedicament.entrySet())
 		{
 			data[i][0] = uneEntree.getValue().getDepotLegal();
 			data[i][1] = uneEntree.getValue().getNomCommercial();
-			data[i][2] = uneEntree.getValue().getLibelleFamille();
+			data[i][2] = uneEntree.getValue().getComposition();
+			data[i][3] = uneEntree.getValue().getEffets();
 			i ++;
 		}
 		String[] columnNames = {"Code", "Nom", "Famille"};

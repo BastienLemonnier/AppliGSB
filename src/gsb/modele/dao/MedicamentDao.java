@@ -63,4 +63,15 @@ public class MedicamentDao {
 		
 		return lesMedicaments;
 	}
+	
+	public static boolean addMedicament(Medicament unMedicament) {
+		boolean success = true;
+		String req = "INSERT INTO MEDICAMENT VALUES `MED_DEPOTLEGAL`, `MED_NOMCOMMERCIAL`, `MED_COMPOSITION`, `MED_EFFETS`, `MED_CONTREINDIC`, `MED_PRIXECHANTILLON`, `FAM_CODE`,`FAM_LIBELLE`";
+		if(ConnexionMySql.execReqMaj(req) == 0)
+		{
+			success = false;
+		}
+		return success;
+	}
+	
 }

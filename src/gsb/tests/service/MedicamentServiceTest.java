@@ -34,5 +34,14 @@ public class MedicamentServiceTest extends TestCase {
 		assertNull("Resultat recherche : ",MedicamentService.rechercher("L8OP21"));
 	}
 	
+	
+	@Test
+	public final void testChercherMedicamentCaractereSpe( ) {
+		assertNull("Resultat recherche : ",MedicamentService.rechercher("#@{[]%"));
+	}
+	
+	public final void testChercherMedicamentRecupList() {
+		assertEquals("Resultat recherche : ", 27, MedicamentService.recupListe().size());
+	}
 
 }
