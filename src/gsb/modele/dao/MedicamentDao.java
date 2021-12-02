@@ -63,4 +63,9 @@ public class MedicamentDao {
 		
 		return lesMedicaments;
 	}
+	
+	public static Medicament addMedicament() {
+		Medicament unMedicament = new Medicament(  )
+		return unMedicament
+	}
 }

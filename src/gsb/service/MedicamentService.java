@@ -4,6 +4,7 @@ import java.util.TreeMap;
 
 import gsb.modele.Medicament;
 import gsb.modele.dao.MedicamentDao;
+import gsb.utils.ServiceUtils;
 
 public class MedicamentService {
 	
@@ -12,9 +13,9 @@ public class MedicamentService {
 		Medicament unMedoc =  null;
 		try {
 			if(depotLegal == null)
-			{
 				throw new Exception("Donnée obligatoire : code");
-			}
+			if(!ServiceUtils.isADepotLegal(depotLegal))
+				throw new Exception("Le dépot légal ne correspond pas au format 'XXXXXXXXXX'");
 			unMedoc = MedicamentDao.rechercher(depotLegal);
 		}
 		catch(Exception e){
