@@ -22,9 +22,9 @@ public class VisiteurService {
 		try
 		{
 			if(matricule == null)
-				throw new Exception("donnée obligatoire : matricule");
+				throw new Exception("Visiteur Error : donnée obligatoire : matricule");
 			if(!ServiceUtils.isAMatricule(matricule))
-				throw new Exception("Le matricule ne correspond pas au format X000.");
+				throw new Exception("Visiteur Error : Le matricule ne correspond pas au format X000.");
 			
 			unVisiteur = VisiteurDao.rechercher(matricule);
 		}

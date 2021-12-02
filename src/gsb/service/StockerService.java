@@ -2,7 +2,9 @@ package gsb.service;
 
 import java.util.ArrayList;
 
+import gsb.modele.Medicament;
 import gsb.modele.Stocker;
+import gsb.modele.Visiteur;
 import gsb.modele.dao.StockerDao;
 import gsb.utils.ServiceUtils;
 
@@ -22,6 +24,22 @@ public class StockerService {
 			System.out.println( e.getMessage());
 		}
 		return lesStock;
+	}
+	
+	public static int getStock(String matricule, String depotLegal)
+	{
+		Visiteur unVisiteur = VisiteurService.rechercherVisiteur(matricule);
+		Medicament unMedicament = MedicamentService.rechercher(depotLegal);
+		int stock = 0;
+		try {
+			if(unVisiteur == null || unMedicament == null)
+				throw new Exception("Le Visiteur et le dépot légal ne peuvent pas être null.");
+			stock = StockerDao.getStock(unVisiteur, unMedicament);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return stock;
 	}
 	
 	public static boolean retirer(Stocker unStock)

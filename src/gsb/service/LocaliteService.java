@@ -16,6 +16,11 @@ import gsb.utils.ServiceUtils;
  */
 public class LocaliteService {
 	
+	/**
+	 * Fonction de recherche d'une localitée en base
+	 * @param codePostal
+	 * @return
+	 */
 	public static Localite rechercherLocalite(String codePostal)
 	{
 		Localite uneLocalite = null;

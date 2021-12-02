@@ -91,7 +91,7 @@ public class ServiceUtils {
 	{
 		boolean isMatricule = true;
 		
-		if(!(matricule.length() <= 4 && matricule.length() >= 3))
+		if(matricule.length() > 4 || matricule.length() < 3)
 		{
 			isMatricule = false;
 		}
@@ -102,12 +102,12 @@ public class ServiceUtils {
 				char unChar = matricule.charAt(i);
 				if(i == 0)
 				{
-					if(!(unChar > 'a' && unChar < 'z'))
+					if(unChar < 'a' || unChar > 'z')
 						isMatricule = false;
 				}
 				else
 				{
-					if(!(unChar >= '0' && unChar <= '9'))
+					if(unChar < '0' || unChar > '9')
 						isMatricule = false;
 				}
 			}

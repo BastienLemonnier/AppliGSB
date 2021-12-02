@@ -19,7 +19,8 @@ public class MedecinDao {
 	{
 		Medecin unMedecin = null;
 		Localite uneLocalite = null;
-		ResultSet reqSelection = ConnexionMySql.execReqSelection("select * from MEDECIN where CODEMED ='"+codeMedecin+"'");
+		ResultSet reqSelection = ConnexionMySql.execReqSelection("SELECT * FROM MEDECIN WHERE CODEMED ='" + codeMedecin + "';");
+		
 		try
 		{
 			if (reqSelection.next())
@@ -33,7 +34,6 @@ public class MedecinDao {
 			System.out.println("erreur reqSelection.next() pour la requête - select * from MEDECIN where CODEMED ='"+codeMedecin+"'");
 			e.printStackTrace();
 		}
-		ConnexionMySql.fermerConnexionBd();
 		return unMedecin;
 	}
 	

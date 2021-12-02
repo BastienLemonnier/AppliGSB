@@ -44,28 +44,38 @@ public class ConnexionMySql {
 	public static ResultSet execReqSelection(String laRequete){ 
 		connecterBd();
 		ResultSet resultatReq = null;
-		try {
+		try
+		{
 				Statement requete = cnx.createStatement(); 
-				resultatReq =requete.executeQuery(laRequete); 
+				resultatReq = requete.executeQuery(laRequete); 
 		} 
-		catch(Exception e) {  System.out.println("Erreur requete : "+laRequete);  }
-		return resultatReq;	
+		catch(Exception e)
+		{
+			System.out.println("Erreur requete : " + laRequete); 
+		}
+		return resultatReq;
 	}
 	
 	/**
 	 * @param laRequete requête SQL de type INSERT, UPDATE ou DELETE
 	 * @return 1 si la MAJ s'est bien déroulée, 0 sinon
 	 */
-	public static int execReqMaj(String laRequete){
+	public static int execReqMaj(String laRequete)
+	{
 		connecterBd();
-		int nbMaj =0;
-		try {
-		Statement s = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        nbMaj = s.executeUpdate(laRequete);
-        s.close();}
-		catch (Exception er) {
+		int nbMaj = 0;
+		try
+		{
+			Statement s = cnx.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+	        nbMaj = s.executeUpdate(laRequete);
+	        s.close();
+        }
+		catch (Exception er)
+		{
 			er.printStackTrace(); 
-			System.out.println("echec requête : "+laRequete); }
+			System.out.println("echec requête : " + laRequete); 
+		}
+		fermerConnexionBd();
 		return nbMaj;       
 	}
 	

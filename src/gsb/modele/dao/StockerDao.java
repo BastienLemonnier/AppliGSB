@@ -17,7 +17,8 @@ public class StockerDao {
 		String req = "SELECT * FROM STOCKER WHERE MATRICULE ='" + matricule + "';";
 		ResultSet resultat = ConnexionMySql.execReqSelection(req);
 	
-		try {
+		try
+		{
 			while(resultat.next()) 
 			{
 				int QteStock = resultat.getInt(1);
@@ -29,7 +30,9 @@ public class StockerDao {
 				unStock = new Stocker(QteStock, unVisiteur, unMedoc);
 				lesStocks.add(unStock);
 			}
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 		return lesStocks;
@@ -64,12 +67,15 @@ public class StockerDao {
 		String req = "SELECT QTTSTOCK FROM STOCKER WHERE MATRICULE ='" + matricule + "' AND MED_DEPOTLEGAL = '" + depotLegal + "' LIMIT 1;";
 		ResultSet resultat = ConnexionMySql.execReqSelection(req);
 		
-		try {
+		try
+		{
 			if(resultat.next()) 
 			{
 				qtt = resultat.getInt(1);
 			}
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 		
@@ -97,4 +103,25 @@ public class StockerDao {
 		
 		return success;
 	}
+
+	/**
+	 * @param unVisiteur
+	 * @param unMedicament
+	 * @return quantité du stock de médicaments
+	 */
+	public static int getStock(Visiteur unVisiteur, Medicament unMedicament) {
+		int stock = 0;
+		String req = "SELECT QTTSTOCK FROM STOCKER WHERE MATRICULE='" + unVisiteur.getMatricule() + "' AND MED_DEPOTLEGAL='" + unMedicament.getDepotLegal() + "';";
+		ResultSet results = ConnexionMySql.execReqSelection(req);
+		try {
+			if(results.next()) {
+				stock = results.getInt(0);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de la requête : " + req);
+			e.printStackTrace();
+		}
+		return stock;
+	}
+	
 }

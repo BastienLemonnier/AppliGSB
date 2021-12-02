@@ -161,6 +161,7 @@ public class JIFVisiteMaj extends JInternalFrame implements ActionListener {
 		if(source == maj)
 		{
 			VisiteService.majVisite(recupVisiteDuText());
+			fenetreContainer.ouvrirFenetre(new JIFVisiteRecapitulatif(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
 		}
 		if(source == offres)
 		{

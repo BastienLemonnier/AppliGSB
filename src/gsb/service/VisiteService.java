@@ -46,17 +46,17 @@ public class VisiteService {
 		try
 		{
 			if(uneVisite.getReference() == null || uneVisite.getDate() == null || uneVisite.getCommentaire() == null || uneVisite.getUnMedecin() == null || uneVisite.getUnVisiteur() == null)
-				throw new Exception("Aucun paramètre ne peut être null !");
+				throw new Exception("Visite Error : Aucun paramètre ne peut être null !");
 			if(!ServiceUtils.isAReference(uneVisite.getReference()))
-				throw new Exception("La référence ne respecte pas le format V0000.");
+				throw new Exception("Visite Error : La référence ne respecte pas le format V0000.");
 			if(!ServiceUtils.isADate(uneVisite.getDate()))
-				throw new Exception("La date ne respecte pas le format YYYY-MM-DD.");
+				throw new Exception("Visite Error : La date ne respecte pas le format YYYY-MM-DD.");
 			if(uneVisite.getCommentaire().length() > 100)
-				throw new Exception("Le commentaire doit faire moins de 100 caractères.");
+				throw new Exception("Visite Error : Le commentaire doit faire moins de 100 caractères.");
 			if(!ServiceUtils.isAMatricule(uneVisite.getUnVisiteur().getMatricule()))
-				throw new Exception("Le matricule ne respecte pas le format X000.");
+				throw new Exception("Visite Error : Le matricule ne respecte pas le format X000.");
 			if(!ServiceUtils.isACodeMed(uneVisite.getUnMedecin().getCodeMed()))
-				throw new Exception("Le code médecin ne respecte pas le format M000.");
+				throw new Exception("Visite Error : Le code médecin ne respecte pas le format M000.");
 			
 			
 			if(VisiteDao.ajouter(uneVisite) == false)

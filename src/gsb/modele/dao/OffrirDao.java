@@ -67,5 +67,22 @@ public class OffrirDao {
 		
 		return lesOffres;
 	}
+	
+	public static int nombreOffresVisite(Visite uneVisite)
+	{
+		int nmb = 0;
+		String req = "SELECT COUNT(*) FROM OFFRIR WHERE REFERENCE = '" + uneVisite.getReference() + "';";
+		ResultSet results = ConnexionMySql.execReqSelection(req);
+		try {
+			if(results.next())
+			{
+				nmb = results.getInt(0);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur lors de la requête : " + req);
+			e.printStackTrace();
+		}
+		return nmb;
+	}
 
 }
