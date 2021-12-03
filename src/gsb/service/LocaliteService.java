@@ -27,17 +27,11 @@ public class LocaliteService {
 		
 		try {
 			if(codePostal == null)
-			{
 				throw new Exception("Donnée obligatoire : codePostal");
-			}
 			if(!ServiceUtils.isStringNumeric(codePostal))
-			{
 				throw new Exception("Le Code Postal ne peut contenir que des chiffres.");
-			}
 			if(codePostal.length() != 5)
-			{
 				throw new Exception("Le Code Postal doit faire 5 charactères de long.");
-			}
 			uneLocalite = LocaliteDao.rechercher(codePostal);
 		} catch(Exception e) {
 			System.out.println(e.getMessage());

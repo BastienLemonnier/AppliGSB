@@ -9,11 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import gsb.modele.Localite;
-import gsb.modele.Medecin;
 import gsb.modele.Offrir;
-import gsb.modele.Visite;
-import gsb.modele.Visiteur;
 import gsb.service.MedicamentService;
 import gsb.service.OffrirService;
 import gsb.service.VisiteService;
