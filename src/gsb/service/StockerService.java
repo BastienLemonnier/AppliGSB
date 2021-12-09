@@ -33,7 +33,7 @@ public class StockerService {
 		int stock = 0;
 		try {
 			if(unVisiteur == null || unMedicament == null)
-				throw new Exception("Le Visiteur et le dépot légal ne peuvent pas être null.");
+				throw new Exception("Le visiteur et le médicament ne peuvent pas être null.");
 			stock = StockerDao.getStock(unVisiteur, unMedicament);
 		}
 		catch(Exception e) {
