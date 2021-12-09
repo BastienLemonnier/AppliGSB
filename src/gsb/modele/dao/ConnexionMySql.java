@@ -13,11 +13,13 @@ import java.sql.Statement;
  * @author LEMONNIER Bastien
  * 07 oct. 2021
  */
-public class ConnexionMySql {
+public class ConnexionMySql
+{
 	
 	static Connection cnx;
 	
-	public ConnexionMySql(){
+	public ConnexionMySql()
+	{
 		cnx = null;
 	}
 	
@@ -28,11 +30,16 @@ public class ConnexionMySql {
 		String url = "jdbc:mysql://192.178.1.13:3306/GSB"; // url : chaine de connexion
 		//String url = "jdbc:mysql://localhost/GSB";
 		// try permet d'essayer de lancer la connexion
-		try {Class.forName("com.mysql.cj.jdbc.Driver");
+		try 
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			cnx = DriverManager.getConnection(url,"gsbAppli","password"); 
 		} 
 		// si la connexion echoue un message d'erreur est affiché
-        catch(Exception e) {  System.out.println("Echec lors de la connexion");  } 
+        catch(Exception e) 
+		{
+        	System.out.println("Echec lors de la connexion");
+        } 
 
 	}
 
@@ -41,7 +48,8 @@ public class ConnexionMySql {
 	 * @param laRequete requête SQL de type SELECT
 	 * @return un curseur qui contient les lignes obtenues lors de l'exécution de la requête, null sinon
 	 */
-	public static ResultSet execReqSelection(String laRequete){ 
+	public static ResultSet execReqSelection(String laRequete)
+	{ 
 		connecterBd();
 		ResultSet resultatReq = null;
 		try
@@ -83,9 +91,16 @@ public class ConnexionMySql {
 	 * attention : tant que la connexion n'est pas fermée, 
 	 * les MAJ ne sont pas effectives, on reste en mode déconnecté
 	 */
-	public static void fermerConnexionBd(){
-		try{cnx.close();}
-		catch(Exception e) {  System.out.println("Erreur sur fermeture connexion");  } 
+	public static void fermerConnexionBd()
+	{
+		try
+		{
+			cnx.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Erreur sur fermeture connexion");
+		} 
 	}
 
 }

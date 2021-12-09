@@ -99,7 +99,7 @@ public class JIFVisiteOffres extends JInternalFrame implements ActionListener, L
 		pBoutons = new JPanel();
 		pBoutons.add(ajouter);
 		
-		dicoOffres = OffrirService.rechercherOffresVisite(uneVisite.getReference());
+		dicoOffres = OffrirService.rechercherOffresVisite(uneVisite);
 		int nbLignes = dicoOffres.size();
 		int i = 0;
 		String[][] data = new String[nbLignes][2] ;
@@ -114,8 +114,8 @@ public class JIFVisiteOffres extends JInternalFrame implements ActionListener, L
 		table.getSelectionModel().addListSelectionListener(this);
 		
 		scrollPane = new JScrollPane(table);
-		scrollPane.setPreferredSize(new Dimension(400, 200));
-		scrollPane.setMinimumSize(new Dimension(300, 150));
+		scrollPane.setPreferredSize(new Dimension(400, 60));
+		scrollPane.setMinimumSize(new Dimension(300, 60));
 		
 		visite = new JButton("Fiche Visite");
 		visite.addActionListener(this);
