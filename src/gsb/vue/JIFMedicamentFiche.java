@@ -9,8 +9,6 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -20,9 +18,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import gsb.modele.Medicament;
-import gsb.service.VisiteService;
 
-public class JIFMedicamentFiche extends JInternalFrame implements ActionListener {
+public class JIFMedicamentFiche extends JInternalFrame {
 
 	/**
 	 * 
@@ -56,18 +53,14 @@ public class JIFMedicamentFiche extends JInternalFrame implements ActionListener
 		pBoutons = new JPanel(); // panneau supportant les boutons
 		pTexte = new JPanel(new GridBagLayout());
 		
-		modifier = new JButton("Modifier");
-		offres = new JButton("Offres de la Visite");
-		
-		JLreference = new JLabel("Référence");
-		JLdateVisite = new JLabel("Date Visite");
-		JLmatricule = new JLabel("Matricule Visiteur");
-		JLcodeMedecin = new JLabel("Code Médecin");
-		JLcommentaire = new JLabel("Commentaire");
+		JLreference = new JLabel("Dépot Legal");
+		JLdateVisite = new JLabel("Nom Commercial");
+		JLmatricule = new JLabel("Nom Molécule");
+		JLcodeMedecin = new JLabel("Code");
+		JLcommentaire = new JLabel("Libelle");
 		
 		JTreference = new JTextField(5);
 		JTreference.setMaximumSize(JTreference.getPreferredSize());
-		JTreference.addActionListener(this);
 		JTdateVisite = new JTextField(10);
 		JTdateVisite.setMaximumSize(JTdateVisite.getPreferredSize());
 		JTdateVisite.setEditable(false);
@@ -107,11 +100,6 @@ public class JIFMedicamentFiche extends JInternalFrame implements ActionListener
 		constraint.gridy = 4;
 		pTexte.add(JTcommentaire, constraint);
 		
-        pBoutons.add(modifier);
-        pBoutons.add(offres);
-        modifier.addActionListener(this);
-        offres.addActionListener(this);
-		
 		// mise en forme de la fenêtre
 
 		Container contentPane = getContentPane();
@@ -136,23 +124,4 @@ public class JIFMedicamentFiche extends JInternalFrame implements ActionListener
 		JTcodeMedecin.setText(unMedicament.getCodeFamille());
 		JTcommentaire.setText(unMedicament.getLibelleFamille());
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		Object source = e.getSource();
-		if(source == JTreference)
-		{
-			fenetreContainer.ouvrirFenetre(new JIFVisiteRecapitulatif(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
-		}
-		if(source == modifier)
-		{
-			fenetreContainer.ouvrirFenetre(new JIFVisiteMaj(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
-		}
-		if(source == offres)
-		{
-			fenetreContainer.ouvrirFenetre(new JIFVisiteOffres(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
-		}
-	}
-
 }
