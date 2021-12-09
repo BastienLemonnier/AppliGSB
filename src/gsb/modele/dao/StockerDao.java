@@ -16,6 +16,7 @@ public class StockerDao {
 		
 		String req = "SELECT * FROM STOCKER WHERE MATRICULE ='" + matricule + "';";
 		ResultSet resultat = ConnexionMySql.execReqSelection(req);
+		Visiteur unVisiteur = VisiteurDao.rechercher(matricule);
 	
 		try
 		{
@@ -24,8 +25,6 @@ public class StockerDao {
 				int QteStock = resultat.getInt(1);
 				Stocker unStock = null;
 				Medicament unMedoc = null;
-				Visiteur unVisiteur = null;
-				unVisiteur = VisiteurDao.rechercher(resultat.getString(2));
 				unMedoc = MedicamentDao.rechercher(resultat.getString(3));
 				unStock = new Stocker(QteStock, unVisiteur, unMedoc);
 				lesStocks.add(unStock);
@@ -115,7 +114,7 @@ public class StockerDao {
 		ResultSet results = ConnexionMySql.execReqSelection(req);
 		try {
 			if(results.next()) {
-				stock = results.getInt(0);
+				stock = results.getInt(1);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erreur lors de la requête : " + req);
