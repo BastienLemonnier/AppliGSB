@@ -95,7 +95,7 @@ private static final long serialVersionUID = 3630L;
    			if (dicoMedicament.containsKey(JTrefMedicament.getText()))
    			{
    	   			Medicament unMedicament = dicoMedicament.get(JTrefMedicament.getText());
-   	   			//fenetreContainer.ouvrirFenetre(new JIFMedicamentRecapitulatif(fenetreContainer, unMedicament));
+   	   			fenetreContainer.ouvrirFenetre(new JIFMedicamentFiche(fenetreContainer, unMedicament));
    			}
    		}
 	}
