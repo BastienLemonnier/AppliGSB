@@ -118,9 +118,9 @@ public class JIFMedicamentAjout extends JInternalFrame implements ActionListener
 		constraint.gridy = 4;
 		pTexte.add(JTprix, constraint);
 		constraint.gridy = 5;
-		pTexte.add(JLlibelle, constraint);
+		pTexte.add(JTlibelle, constraint);
 		constraint.gridy = 6;
-		pTexte.add(JLlibelle, constraint);
+		pTexte.add(JTcodFam, constraint);
 		
         pBoutons.add(ajouter);
         ajouter.addActionListener(this);
