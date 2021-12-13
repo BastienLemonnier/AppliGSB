@@ -35,5 +35,20 @@ public class MedicamentService {
 		}
 		return lesMedicaments;
 	}
+	
+	public static boolean ajouter(Medicament unMedicament)
+	{
+		boolean success = false;
+		try
+		{
+			MedicamentDao.addMedicament(unMedicament); 
+			success = true;
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return success;
+	}
 
 }

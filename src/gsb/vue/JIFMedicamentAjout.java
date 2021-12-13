@@ -51,7 +51,7 @@ public class JIFMedicamentAjout extends JInternalFrame implements ActionListener
 	
 	protected JTextField JTDepotLegal;
 	protected JTextField JTnomCom;
-	protected JTextArea JTeffet;
+	protected JTextField     JTeffet;
 	protected JTextField JTcomp;
 	protected JTextField JTprix;
 	protected JTextField JTlibelle;
@@ -76,7 +76,7 @@ public class JIFMedicamentAjout extends JInternalFrame implements ActionListener
 		JTDepotLegal.setMaximumSize(JTDepotLegal.getPreferredSize());
 		JTnomCom = new JTextField(10);
 		JTnomCom.setMaximumSize(JTnomCom.getPreferredSize());
-		JTeffet = new JTextArea(5, 20);
+		JTeffet = new JTextField(5);
 		JTeffet.setMaximumSize(JTeffet.getPreferredSize());
 		JTcomp = new JTextField(4);
 		JTcomp.setMaximumSize(JTcomp.getPreferredSize());
@@ -178,7 +178,7 @@ public class JIFMedicamentAjout extends JInternalFrame implements ActionListener
 		Object source = e.getSource();
 		if(source == ajouter)
 		{
-			MedicamentService.ajouterMedicament(recupMedicamentDuText());
+			MedicamentService.ajouter(recupMedicamentDuText());
 		}
 	}
 
