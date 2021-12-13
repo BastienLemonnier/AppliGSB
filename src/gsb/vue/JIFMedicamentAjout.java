@@ -48,14 +48,16 @@ public class JIFMedicamentAjout extends JInternalFrame implements ActionListener
 	protected JLabel JLprix;
 	protected JLabel JLlibelle;
 	protected JLabel JLcodFam;
+	protected JLabel JLmessage;
 	
 	protected JTextField JTDepotLegal;
 	protected JTextField JTnomCom;
-	protected JTextField     JTeffet;
+	protected JTextField JTeffet;
 	protected JTextField JTcomp;
 	protected JTextField JTprix;
 	protected JTextField JTlibelle;
 	protected JTextField JTcodFam;
+	protected JTextField JTmessage;
 	
 	public JIFMedicamentAjout() {
 		p = new JPanel(new GridBagLayout()); // panneau principal de la fenêtre
@@ -71,6 +73,7 @@ public class JIFMedicamentAjout extends JInternalFrame implements ActionListener
 		JLprix = new JLabel("prix échantillion");
 		JLlibelle = new JLabel("libelle Famille");
 		JLcodFam = new JLabel("code Famille");
+		JLmessage = new JLabel("bite");
 		
 		JTDepotLegal = new JTextField(5);
 		JTDepotLegal.setMaximumSize(JTDepotLegal.getPreferredSize());
@@ -178,7 +181,12 @@ public class JIFMedicamentAjout extends JInternalFrame implements ActionListener
 		Object source = e.getSource();
 		if(source == ajouter)
 		{
-			MedicamentService.ajouter(recupMedicamentDuText());
+			if(MedicamentService.ajouter(recupMedicamentDuText()))
+				JLmessage.setText("L'ajout a réussi !");
+			else
+				JLmessage.setText("L'ajout a échoué !");
+			this.revalidate();
+			this.repaint();
 		}
 	}
 
