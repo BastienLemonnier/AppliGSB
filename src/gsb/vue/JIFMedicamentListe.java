@@ -39,7 +39,8 @@ private static final long serialVersionUID = 3630L;
 	protected MenuPrincipal fenetreContainer;
 	protected JTable table;
 
-	public JIFMedicamentListe(MenuPrincipal uneFenetreContainer) {
+	public JIFMedicamentListe(MenuPrincipal uneFenetreContainer)
+	{
 
 		fenetreContainer = uneFenetreContainer;
 		
@@ -101,7 +102,8 @@ private static final long serialVersionUID = 3630L;
 	}
 
 	@Override
-	public void valueChanged(ListSelectionEvent e) {
+	public void valueChanged(ListSelectionEvent e)
+	{
 		JTrefMedicament.setText((String)table.getValueAt(table.getSelectedRow(), 0));
 	}
 	
