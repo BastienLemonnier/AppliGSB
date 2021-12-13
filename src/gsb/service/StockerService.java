@@ -75,8 +75,31 @@ public class StockerService {
 				throw new Exception("Le depot legal ne respecte pas le format du depot legal");
 			success = StockerDao.ajouter(unStock);
 		}
-		catch(Exception e){
+		catch(Exception e)
+		{
 			System.out.println( e.getMessage());
+		}
+		
+		return success;
+	}
+	
+	public static boolean modifier(Stocker unStock)
+	{
+		boolean success = true;
+		
+		try
+		{
+			if(unStock.getUnVisiteur().getMatricule() == null || unStock.getUnMedicament().getDepotLegal() == null)
+				throw new Exception("Données obligatoire : quantite, visiteur, medicament");
+			if(!ServiceUtils.isAMatricule(unStock.getUnVisiteur().getMatricule()))
+				throw new Exception("Le matricule ne respecte pas le format A00...");
+			if(!ServiceUtils.isADepotLegal(unStock.getUnMedicament().getDepotLegal()))
+				throw new Exception("Le depot legal ne respecte pas le format du depot legal");
+			success = StockerDao.modifier(unStock);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
 		}
 		
 		return success;

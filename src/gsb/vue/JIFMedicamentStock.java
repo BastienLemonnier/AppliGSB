@@ -11,7 +11,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -29,6 +28,7 @@ import gsb.modele.Medicament;
 import gsb.modele.Stocker;
 import gsb.modele.Visiteur;
 import gsb.service.MedicamentService;
+import gsb.service.StockerService;
 import gsb.service.VisiteurService;
 
 /**
@@ -75,7 +75,7 @@ public class JIFMedicamentStock extends JInternalFrame implements ListSelectionL
 		medocPane = new JPanel(new GridBagLayout());
 		this.add(medocPane, BorderLayout.LINE_START);
 		
-		TreeMap<String, Medicament> lesMedocs = MedicamentService.recupListe();
+		lesMedocs = MedicamentService.recupListe();
 		int nbLignes = lesMedocs.size();
 		int i = 0;
 		String[][] data = new String[nbLignes][2] ;
@@ -111,15 +111,15 @@ public class JIFMedicamentStock extends JInternalFrame implements ListSelectionL
 		visitPane = new JPanel(new GridBagLayout());
 		this.add(visitPane, BorderLayout.LINE_END);
 		
-		ArrayList<Visiteur> lesVisiteurs = VisiteurService.recupListe();
+		lesVisiteurs = VisiteurService.recupListe();
 		nbLignes = lesMedocs.size();
 		i = 0;
 		data = new String[nbLignes][2] ;
-		for (Visiteur unVisiteur : lesVisiteurs)
+		for (Map.Entry<String, Visiteur> uneEntree : lesVisiteurs.entrySet())
 		{
-			data[i][0] = unVisiteur.getMatricule();
-			data[i][1] = unVisiteur.getNom();
-			data[i][2] = unVisiteur.getPrenom();
+			data[i][0] = uneEntree.getValue().getMatricule();
+			data[i][1] = uneEntree.getValue().getNom();
+			data[i][2] = uneEntree.getValue().getPrenom();
 			i ++;
 		}
 		String[] columnNamesVisit = {"Matricule", "Nom", "Prénom"};
@@ -169,12 +169,24 @@ public class JIFMedicamentStock extends JInternalFrame implements ListSelectionL
 	
 	private Stocker getStockSaisie()
 	{
-		Stocker leStock = new Stocker();
+		Visiteur leVisiteur = lesVisiteurs.get(JTvisit.getText());
+		Medicament leMedoc = lesMedocs.get(JTmedoc.getText());
+		int quantite = Integer.parseInt(JTquantity.getText());
+		Stocker leStock = new Stocker(quantite, leVisiteur, leMedoc);
+		return leStock;
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		// TODO Auto-generated method stub
+		Object source = e.getSource();
+		if(source == visitTable)
+		{
+			JTvisit.setText((String)visitTable.getValueAt(visitTable.getSelectedRow(), 0));
+		}
+		if(source == medocTable)
+		{
+			JTmedoc.setText((String)medocTable.getValueAt(medocTable.getSelectedRow(), 0));
+		}
 		
 	}
 
@@ -184,7 +196,7 @@ public class JIFMedicamentStock extends JInternalFrame implements ListSelectionL
 		
 		if(source == JBsend)
 		{
-			
+			StockerService.modifier(getStockSaisie());
 		}
 		
 	}
