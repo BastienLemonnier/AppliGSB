@@ -102,6 +102,9 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 				case "Liste Medicaments":
 					ouvrirFenetre(new JIFMedicamentListe(this));
 					break;
+				case "Ajout Medicaments":
+					ouvrirFenetre(new JIFMedicamentAjout(this));
+					break;
 				case "Liste Visites" : 
 					ouvrirFenetre(new JIFVisiteListe(this, "", ""));
 					break;
