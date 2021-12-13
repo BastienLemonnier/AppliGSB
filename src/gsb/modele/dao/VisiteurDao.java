@@ -6,7 +6,6 @@
 package gsb.modele.dao;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 import gsb.modele.Localite;

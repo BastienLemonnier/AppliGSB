@@ -123,4 +123,36 @@ public class StockerDao {
 		return stock;
 	}
 	
+	private static boolean deleteStock(String matricule, String depotLegal)
+	{
+		boolean success = false;
+		String req = "DELETE * FROM STOCKER WHERE MATRICULE='" + matricule + "' AND MED_DEPOTLEGAL='" + depotLegal + "';";
+		if(ConnexionMySql.execReqMaj(req) == 1)
+			success = true;
+		return success;
+	}
+	
+	public static boolean modifier(Stocker unStock)
+	{
+		boolean success = false;
+		String req = "UPDATE STOCKER SET QTTSTOCK = '" + unStock.getQteStock() + "' WHERE MATRICULE='" + unStock.getUnVisiteur().getMatricule() + "' AND MED_DEPOTLEGAL='" + unStock.getUnMedicament().getDepotLegal() + "';";
+		
+		if(getQuantite(unStock.getUnVisiteur().getMatricule(), unStock.getUnMedicament().getDepotLegal()) == 0)
+		{
+			req = "INSERT INTO STOCKER VALUES ('" + unStock.getQteStock() + "', '" + unStock.getUnVisiteur().getMatricule() + "', '" + unStock.getUnMedicament().getDepotLegal() + "');";
+		}
+		if(unStock.getQteStock() == 0)
+		{
+			deleteStock(unStock.getUnVisiteur().getMatricule(), unStock.getUnMedicament().getDepotLegal());
+			success = true;
+		}
+		else
+		{
+			if(ConnexionMySql.execReqMaj(req) == 1)
+				success = true;
+		}
+		
+		return success;
+	}
+	
 }
