@@ -27,8 +27,8 @@ public class ConnexionMySql
 	 * methode qui permet la connexion à la base de données
 	 */
 	public static void connecterBd(){
-		String url = "jdbc:mysql://192.178.1.13:3306/GSB"; // url : chaine de connexion
-		//String url = "jdbc:mysql://localhost/GSB";
+		//String url = "jdbc:mysql://192.178.1.13:3306/GSB"; // url : chaine de connexion
+		String url = "jdbc:mysql://localhost/GSB";
 		// try permet d'essayer de lancer la connexion
 		try 
 		{

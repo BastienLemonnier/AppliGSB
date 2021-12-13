@@ -5,6 +5,9 @@
  */
 package gsb.service;
 
+import java.util.ArrayList;
+import java.util.TreeMap;
+
 import gsb.modele.Visiteur;
 import gsb.modele.dao.VisiteurDao;
 import gsb.utils.ServiceUtils;
@@ -33,6 +36,20 @@ public class VisiteurService {
 			System.out.println(e.getMessage());
 		}
 		return unVisiteur;
+	}
+	
+	public static TreeMap<String, Visiteur> recupListe()
+	{
+		TreeMap<String, Visiteur> lesVisiteurs = new TreeMap<String, Visiteur>();
+		try
+		{
+			lesVisiteurs = VisiteurDao.recupList();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return lesVisiteurs;
 	}
 	
 }
