@@ -6,6 +6,10 @@
  */
 package gsb.service;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 import gsb.modele.Medecin;
 import gsb.modele.dao.MedecinDao;
 import gsb.utils.ServiceUtils;
@@ -32,6 +36,21 @@ public class MedecinService {
 			System.out.println( e.getMessage());
 		}
 		return unMedecin;
+	}
+	
+	public static TreeMap<String, Medecin> recupListe()
+	{
+		HashMap<String, Medecin> lesMedecinsDesor = MedecinDao.retournerDictionnaireDesMedecins();
+		TreeMap<String, Medecin> lesMedecins = new TreeMap<String, Medecin>();
+		
+		for (Map.Entry<String, Medecin> uneEntree : lesMedecinsDesor.entrySet())
+		{
+			String codeMed = uneEntree.getKey();
+			Medecin leMedecin = uneEntree.getValue();
+			lesMedecins.put(codeMed, leMedecin);
+		}
+		
+		return lesMedecins;
 	}
 	
 }

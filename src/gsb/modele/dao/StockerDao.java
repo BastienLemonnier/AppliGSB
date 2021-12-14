@@ -3,10 +3,13 @@ package gsb.modele.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import gsb.modele.Medicament;
 import gsb.modele.Stocker;
 import gsb.modele.Visiteur;
+import gsb.service.MedicamentService;
+import gsb.service.VisiteurService;
 
 public class StockerDao {
 
@@ -35,6 +38,33 @@ public class StockerDao {
 			e.printStackTrace();
 		}
 		return lesStocks;
+	}
+	
+	public static TreeMap<String, Stocker> getStocksMedicament(String depotLegal)
+	{
+		TreeMap<String, Stocker> lesStock = new TreeMap<String, Stocker>();
+		Medicament leMedoc = MedicamentService.rechercher(depotLegal);
+		
+		String req = "SELECT * FROM STOCKER WHERE MED_DEPOTLEGAL='" + depotLegal + "';";
+		ResultSet resultats = ConnexionMySql.execReqSelection(req);
+		try
+		{
+			while(resultats.next())
+			{
+				int qtt = resultats.getInt(1);
+				String matricule = resultats.getString(2);
+				Visiteur unVisiteur = VisiteurService.rechercherVisiteur(matricule);
+				Stocker unStock = new Stocker(qtt, unVisiteur, leMedoc);
+				lesStock.put(matricule, unStock);
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println(e.getStackTrace());
+		}
+		
+		
+		return lesStock;
 	}
 	
 	public static boolean ajouter(Stocker unStock)
@@ -115,6 +145,7 @@ public class StockerDao {
 		try {
 			if(results.next()) {
 				stock = results.getInt(1);
+				System.out.println("Il y a " + stock + " " + unMedicament.getNomCommercial() + " dans les stocks de " + unVisiteur.getNom() + " " + unVisiteur.getPrenom());
 			}
 		} catch (SQLException e) {
 			System.out.println("Erreur lors de la requête : " + req);

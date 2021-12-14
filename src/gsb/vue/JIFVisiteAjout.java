@@ -11,8 +11,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.TreeMap;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -53,8 +55,8 @@ public class JIFVisiteAjout extends JInternalFrame implements ActionListener {
 	protected JTextField JTreference;
 	protected JTextField JTdateVisite;
 	protected JTextArea JTcommentaire;
-	protected JTextField JTmatricule;
-	protected JTextField JTcodeMedecin;
+	protected JComboBox<String> JCmatricule;
+	protected JComboBox<String> JCcodeMedecin;
 	
 	public JIFVisiteAjout() {
 		p = new JPanel(new GridBagLayout()); // panneau principal de la fenêtre
@@ -75,10 +77,14 @@ public class JIFVisiteAjout extends JInternalFrame implements ActionListener {
 		JTdateVisite.setMaximumSize(JTdateVisite.getPreferredSize());
 		JTcommentaire = new JTextArea(5, 20);
 		JTcommentaire.setMaximumSize(JTcommentaire.getPreferredSize());
-		JTmatricule = new JTextField(4);
-		JTmatricule.setMaximumSize(JTmatricule.getPreferredSize());
-		JTcodeMedecin = new JTextField(4);
-		JTcodeMedecin.setMaximumSize(JTcodeMedecin.getPreferredSize());
+		JCmatricule = new JComboBox<String>();
+		TreeMap<String, Visiteur> lesVisiteurs = VisiteurService.recupListe();
+		for(String key : lesVisiteurs.keySet())
+			JCmatricule.addItem(key);
+		JCcodeMedecin = new JComboBox<String>();
+		TreeMap<String, Medecin> lesMedecins = MedecinService.recupListe();
+		for(String key : lesMedecins.keySet())
+			JCcodeMedecin.addItem(key);
 		
 		GridBagConstraints constraint = new GridBagConstraints();
 		constraint.fill = GridBagConstraints.HORIZONTAL;
@@ -102,9 +108,9 @@ public class JIFVisiteAjout extends JInternalFrame implements ActionListener {
 		constraint.gridy = 2;
 		pTexte.add(JTcommentaire, constraint);
 		constraint.gridy = 3;
-		pTexte.add(JTmatricule, constraint);
+		pTexte.add(JCmatricule, constraint);
 		constraint.gridy = 4;
-		pTexte.add(JTcodeMedecin, constraint);
+		pTexte.add(JCcodeMedecin, constraint);
 		
         pBoutons.add(ajouter);
         ajouter.addActionListener(this);
@@ -128,8 +134,6 @@ public class JIFVisiteAjout extends JInternalFrame implements ActionListener {
 		JTreference.setText(uneVisite.getReference());
 		JTdateVisite.setText(uneVisite.getDate());
 		JTcommentaire.setText(uneVisite.getCommentaire());
-		JTmatricule.setText(uneVisite.getUnVisiteur().getMatricule());
-		JTcodeMedecin.setText(uneVisite.getUnMedecin().getCodeMed());
 	}
 	
 	public void viderText() 	
@@ -137,8 +141,6 @@ public class JIFVisiteAjout extends JInternalFrame implements ActionListener {
 		JTreference.setText("");
 		JTdateVisite.setText("");
 		JTcommentaire.setText("");
-		JTmatricule.setText("");
-		JTcodeMedecin.setText("");
 	}
 	
 	public Visite recupVisiteDuText()
@@ -146,8 +148,8 @@ public class JIFVisiteAjout extends JInternalFrame implements ActionListener {
 		String reference = JTreference.getText();
 		String dateVisite = JTdateVisite.getText();
 		String commentaire = JTcommentaire.getText();
-		Visiteur visiteur = VisiteurService.rechercherVisiteur(JTmatricule.getText());
-		Medecin medecin = MedecinService.rechercherMedecin(JTcodeMedecin.getText());
+		Visiteur visiteur = VisiteurService.rechercherVisiteur((String) JCmatricule.getSelectedItem());
+		Medecin medecin = MedecinService.rechercherMedecin((String) JCcodeMedecin.getSelectedItem());
 		Visite uneVisite = new Visite(reference, dateVisite, commentaire, medecin, visiteur);
 		return uneVisite;
 	}

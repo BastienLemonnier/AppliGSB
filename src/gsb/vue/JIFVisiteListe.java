@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,7 +25,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import gsb.modele.Visite;
+import gsb.modele.Visiteur;
 import gsb.service.VisiteService;
+import gsb.service.VisiteurService;
 
 /**
  * @author LEMONNIER Bastien
@@ -41,7 +44,7 @@ public class JIFVisiteListe extends JInternalFrame implements ActionListener, Li
 	
 	protected JPanel pSaisie1;
 	protected JLabel JLmatricule;
-	protected JTextField JTmatricule;
+	protected JComboBox<String> JCmatricule;
 	protected JLabel JLdate;
 	protected JTextField JTdate;
 	
@@ -49,7 +52,7 @@ public class JIFVisiteListe extends JInternalFrame implements ActionListener, Li
 	
 	protected JPanel pSaisie2;
 	protected JLabel JLrefVisite;
-	protected JTextField JTrefVisite;
+	protected JComboBox<String> JCrefVisite;
 	protected JButton JBafficherVisite;
 	
 	protected MenuPrincipal fenetreContainer;
@@ -68,13 +71,18 @@ public class JIFVisiteListe extends JInternalFrame implements ActionListener, Li
 		
 		pSaisie1 = new JPanel(new GridLayout(2,2));
 		JLmatricule = new JLabel("Matricule Visiteur : ");
-		JTmatricule = new JTextField(matricule);
-		JTmatricule.addActionListener(this);
+		JCmatricule = new JComboBox<String>();
+		TreeMap<String, Visiteur> lesVisiteurs = VisiteurService.recupListe();
+		JCmatricule.addItem("");
+		for(String key : lesVisiteurs.keySet())
+			JCmatricule.addItem(key);
+		JCmatricule.setSelectedItem(matricule);
+		JCmatricule.addActionListener(this);
 		JLdate = new JLabel("Date Visite : ");
 		JTdate = new JTextField(date);
 		JTdate.addActionListener(this);
 		pSaisie1.add(JLmatricule);
-		pSaisie1.add(JTmatricule);
+		pSaisie1.add(JCmatricule);
 		pSaisie1.add(JLdate);
 		pSaisie1.add(JTdate);
 		p.add(pSaisie1);
@@ -100,12 +108,13 @@ public class JIFVisiteListe extends JInternalFrame implements ActionListener, Li
 		
 		pSaisie2 = new JPanel();
 		JLrefVisite = new JLabel("Référence : ");
-		JTrefVisite = new JTextField(20);
-		JTrefVisite.setMaximumSize(JTrefVisite.getPreferredSize());
+		JCrefVisite = new JComboBox<String>();
+		for(String key : dicoVisite.keySet())
+			JCrefVisite.addItem(key);
 		JBafficherVisite = new JButton("Visite Détaillée");
 		JBafficherVisite.addActionListener(this); // source d'évenement
 		pSaisie2.add(JLrefVisite);
-		pSaisie2.add(JTrefVisite);
+		pSaisie2.add(JCrefVisite);
 		pSaisie2.add(JBafficherVisite);
 		p.add(pSaisie2);
 		
@@ -123,21 +132,21 @@ public class JIFVisiteListe extends JInternalFrame implements ActionListener, Li
 		Object source = arg0.getSource();
    		if (source == JBafficherVisite)
    		{
-   			if (dicoVisite.containsKey(JTrefVisite.getText()))
+   			if (dicoVisite.containsKey((String) JCrefVisite.getSelectedItem()))
    			{
-   	   			Visite uneVisite = dicoVisite.get(JTrefVisite.getText());
+   	   			Visite uneVisite = dicoVisite.get((String) JCrefVisite.getSelectedItem());
    	   			fenetreContainer.ouvrirFenetre(new JIFVisiteRecapitulatif(fenetreContainer, uneVisite));
    			}
    		}
    		
-   		if(source == JTmatricule || source == JTdate)
+   		if(source == JCmatricule || source == JTdate)
    		{
-   			fenetreContainer.ouvrirFenetre(new JIFVisiteListe(fenetreContainer, JTmatricule.getText(), JTdate.getText()));
+   			fenetreContainer.ouvrirFenetre(new JIFVisiteListe(fenetreContainer, (String) JCmatricule.getSelectedItem(), JTdate.getText()));
    		}
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		JTrefVisite.setText((String)table.getValueAt(table.getSelectedRow(), 0));
+		JCrefVisite.setSelectedItem((String)table.getValueAt(table.getSelectedRow(), 0));
 	}
 }

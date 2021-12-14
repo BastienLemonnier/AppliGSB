@@ -35,6 +35,7 @@ private static final long serialVersionUID = 3630L;
 	protected JLabel JLrefMedicament;
 	protected JTextField JTrefMedicament;
 	protected JButton JBafficherMedicament;
+	protected JButton JBstockMedicament;
 	
 	protected MenuPrincipal fenetreContainer;
 	protected JTable table;
@@ -74,9 +75,12 @@ private static final long serialVersionUID = 3630L;
 		JTrefMedicament.setMaximumSize(JTrefMedicament.getPreferredSize());
 		JBafficherMedicament = new JButton("Médicament Détaillée");
 		JBafficherMedicament.addActionListener(this); // source d'évenement
+		JBstockMedicament = new JButton("Stocks Médicament");
+		JBstockMedicament.addActionListener(this);
 		pSaisie2.add(JLrefMedicament);
 		pSaisie2.add(JTrefMedicament);
 		pSaisie2.add(JBafficherMedicament);
+		pSaisie2.add(JBstockMedicament);
 		p.add(pSaisie2);
 		
 		// mise en forme de la fenêtre
@@ -98,6 +102,11 @@ private static final long serialVersionUID = 3630L;
    	   			Medicament unMedicament = dicoMedicament.get(JTrefMedicament.getText());
    	   			fenetreContainer.ouvrirFenetre(new JIFMedicamentFiche(fenetreContainer, unMedicament));
    			}
+   		}
+   		
+   		if(source == JBstockMedicament)
+   		{
+   			fenetreContainer.ouvrirFenetre(new JIFMedicamentStock(fenetreContainer, JTrefMedicament.getText(), ""));
    		}
 	}
 

@@ -11,8 +11,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.TreeMap;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -47,7 +49,7 @@ public class JIFVisiteRecapitulatif extends JInternalFrame implements ActionList
 	protected JLabel JLcodeMedecin;
 	protected JLabel JLcommentaire;
 	
-	protected JTextField JTreference;
+	protected JComboBox<String> JCreference;
 	protected JTextField JTdateVisite;
 	protected JTextField JTmatricule;
 	protected JTextField JTcodeMedecin;
@@ -70,9 +72,12 @@ public class JIFVisiteRecapitulatif extends JInternalFrame implements ActionList
 		JLcodeMedecin = new JLabel("Code Médecin");
 		JLcommentaire = new JLabel("Commentaire");
 		
-		JTreference = new JTextField(5);
-		JTreference.setMaximumSize(JTreference.getPreferredSize());
-		JTreference.addActionListener(this);
+		JCreference = new JComboBox<String>();
+		TreeMap<String, Visite> lesVisites = VisiteService.rechercherListeVisites("", "");
+		for(String key : lesVisites.keySet())
+			JCreference.addItem(key);
+		JCreference.setSelectedItem(uneVisite.getReference());
+		JCreference.addActionListener(this);
 		JTdateVisite = new JTextField(10);
 		JTdateVisite.setMaximumSize(JTdateVisite.getPreferredSize());
 		JTdateVisite.setEditable(false);
@@ -102,7 +107,7 @@ public class JIFVisiteRecapitulatif extends JInternalFrame implements ActionList
 		pTexte.add(JLcommentaire, constraint);
 		constraint.gridx = 1;
 		constraint.gridy = 0;
-		pTexte.add(JTreference, constraint);
+		pTexte.add(JCreference, constraint);
 		constraint.gridy = 1;
 		pTexte.add(JTdateVisite, constraint);
 		constraint.gridy = 2;
@@ -135,7 +140,6 @@ public class JIFVisiteRecapitulatif extends JInternalFrame implements ActionList
 	
 	public void remplirText(Visite uneVisite) 	
 	{ // méthode qui permet de remplir les zones de texte à partir des valeurs passées en paramètres
-		JTreference.setText(uneVisite.getReference());
 		JTdateVisite.setText(uneVisite.getDate());
 		JTmatricule.setText(uneVisite.getUnVisiteur().getMatricule());
 		JTcodeMedecin.setText(uneVisite.getUnMedecin().getCodeMed());
@@ -146,17 +150,17 @@ public class JIFVisiteRecapitulatif extends JInternalFrame implements ActionList
 	public void actionPerformed(ActionEvent e)
 	{
 		Object source = e.getSource();
-		if(source == JTreference)
+		if(source == JCreference)
 		{
-			fenetreContainer.ouvrirFenetre(new JIFVisiteRecapitulatif(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
+			fenetreContainer.ouvrirFenetre(new JIFVisiteRecapitulatif(fenetreContainer, VisiteService.rechercherVisite((String) JCreference.getSelectedItem())));
 		}
 		if(source == modifier)
 		{
-			fenetreContainer.ouvrirFenetre(new JIFVisiteMaj(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
+			fenetreContainer.ouvrirFenetre(new JIFVisiteMaj(fenetreContainer, VisiteService.rechercherVisite((String) JCreference.getSelectedItem())));
 		}
 		if(source == offres)
 		{
-			fenetreContainer.ouvrirFenetre(new JIFVisiteOffres(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
+			fenetreContainer.ouvrirFenetre(new JIFVisiteOffres(fenetreContainer, VisiteService.rechercherVisite((String) JCreference.getSelectedItem())));
 		}
 	}
 

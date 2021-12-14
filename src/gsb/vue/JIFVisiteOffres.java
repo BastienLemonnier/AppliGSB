@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -49,11 +50,11 @@ public class JIFVisiteOffres extends JInternalFrame implements ActionListener, L
 	
 	protected JPanel pSaisie1;
 	protected JLabel JLreference;
-	protected JTextField JTreference;
+	protected JComboBox<String> JCreference;
 	
 	protected JPanel pSaisie2;
 	protected JLabel JLdepotLegal;
-	protected JTextField JTdepotLegal;
+	protected JComboBox<String> JCdepotLegal;
 	protected JLabel JLquantite;
 	protected JTextField JTquantite;
 	
@@ -76,21 +77,28 @@ public class JIFVisiteOffres extends JInternalFrame implements ActionListener, L
 		p = new JPanel(new GridBagLayout());
 		
 		JLreference = new JLabel("Référence : ");
-		JTreference = new JTextField(uneVisite.getReference());
-		JTreference.addActionListener(this);
+		JCreference = new JComboBox<String>();
+		TreeMap<String, Visite> lesVisites = VisiteService.rechercherListeVisites("", "");
+		for(String key : lesVisites.keySet())
+			JCreference.addItem(key);
+		JCreference.setSelectedItem(uneVisite.getReference());
+		JCreference.addActionListener(this);
 		
 		pSaisie1 = new JPanel(new GridLayout(1,2));
 		pSaisie1.add(JLreference);
-		pSaisie1.add(JTreference);
+		pSaisie1.add(JCreference);
 		
 		JLdepotLegal = new JLabel("Dépôt légal : ");
-		JTdepotLegal = new JTextField();
+		JCdepotLegal = new JComboBox<String>();
+		TreeMap<String, Medicament> lesMedocs = MedicamentService.recupListe();
+		for(String key : lesMedocs.keySet())
+			JCdepotLegal.addItem(key);
 		JLquantite = new JLabel("Quantité : ");
 		JTquantite = new JTextField();
 		
 		pSaisie2 = new JPanel(new GridLayout(2,2));
 		pSaisie2.add(JLdepotLegal);
-		pSaisie2.add(JTdepotLegal);
+		pSaisie2.add(JCdepotLegal);
 		pSaisie2.add(JLquantite);
 		pSaisie2.add(JTquantite);
 		
@@ -146,8 +154,8 @@ public class JIFVisiteOffres extends JInternalFrame implements ActionListener, L
 	
 	private Offrir offreFromFields()
 	{
-		Medicament leMedicament = MedicamentService.rechercher(JTdepotLegal.getText());
-		Visite laVisite = VisiteService.rechercherVisite(JTreference.getText());
+		Medicament leMedicament = MedicamentService.rechercher((String) JCdepotLegal.getSelectedItem());
+		Visite laVisite = VisiteService.rechercherVisite((String) JCreference.getSelectedItem());
 		int quantite = Integer.parseInt(JTquantite.getText());
 		Offrir offre = new Offrir(leMedicament, laVisite, quantite);
 		return offre;
@@ -160,22 +168,23 @@ public class JIFVisiteOffres extends JInternalFrame implements ActionListener, L
 		if(source == ajouter)
 		{
 			OffrirService.inserer(offreFromFields());
-			fenetreContainer.ouvrirFenetre(new JIFVisiteOffres(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
+			fenetreContainer.ouvrirFenetre(new JIFVisiteOffres(fenetreContainer, VisiteService.rechercherVisite((String) JCreference.getSelectedItem())));
 		}
-		if(source == JTreference)
+		if(source == JCreference)
 		{
-			fenetreContainer.ouvrirFenetre(new JIFVisiteOffres(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
+			fenetreContainer.ouvrirFenetre(new JIFVisiteOffres(fenetreContainer, VisiteService.rechercherVisite((String) JCreference.getSelectedItem())));
 		}
 		if(source == visite)
 		{
-			fenetreContainer.ouvrirFenetre(new JIFVisiteRecapitulatif(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
+			fenetreContainer.ouvrirFenetre(new JIFVisiteRecapitulatif(fenetreContainer, VisiteService.rechercherVisite((String) JCreference.getSelectedItem())));
 		}
 		
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		// TODO Auto-generated method stub
+		
+		JCdepotLegal.setSelectedItem((String)table.getValueAt(table.getSelectedRow(), 0));
 		
 	}
 	

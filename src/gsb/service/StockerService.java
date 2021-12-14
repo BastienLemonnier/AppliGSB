@@ -1,6 +1,7 @@
 package gsb.service;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import gsb.modele.Medicament;
 import gsb.modele.Stocker;
@@ -22,6 +23,24 @@ public class StockerService {
 		}
 		catch(Exception e){
 			System.out.println( e.getMessage());
+		}
+		return lesStock;
+	}
+	
+	public static TreeMap<String, Stocker> getStocksMedicament(String depotLegal)
+	{
+		TreeMap<String, Stocker> lesStock = null;
+		try
+		{
+			if(depotLegal == null || depotLegal == "")
+				throw new Exception("Donnée obligatoire : depotLegal");
+			if(!ServiceUtils.isADepotLegal(depotLegal))
+				throw new Exception("Le dépot légal ne respecte pas le format XXXXXXX...");
+			lesStock = StockerDao.getStocksMedicament(depotLegal);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
 		}
 		return lesStock;
 	}

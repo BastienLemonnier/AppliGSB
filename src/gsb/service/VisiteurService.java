@@ -5,7 +5,6 @@
  */
 package gsb.service;
 
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 import gsb.modele.Visiteur;

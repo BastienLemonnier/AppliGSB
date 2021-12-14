@@ -76,7 +76,7 @@ public class OffrirDao {
 		try {
 			if(results.next())
 			{
-				nmb = results.getInt(0);
+				nmb = results.getInt(1);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erreur lors de la requête : " + req);

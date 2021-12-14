@@ -9,12 +9,14 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.TreeMap;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,92 +46,60 @@ public class JIFMedicamentStock extends JInternalFrame implements ListSelectionL
 	 */
 	private static final long serialVersionUID = -7417049198945743569L;
 	
-	protected TreeMap<String, Medicament> lesMedocs;
-	protected JPanel medocPane;
-	protected JScrollPane medocListPane;
-	protected JTable medocTable;
-	protected JLabel JLmedoc;
-	protected JTextField JTmedoc;
+	protected TreeMap<String, Stocker> lesStocks;
 	
-	protected TreeMap<String, Visiteur> lesVisiteurs;
 	protected JPanel visitPane;
 	protected JScrollPane visitListPane;
 	protected JTable visitTable;
-	protected JLabel JLvisit;
-	protected JTextField JTvisit;
+	
+	protected JLabel JLdepotLegal;
+	protected JComboBox<String> JCdepotLegal;
 	
 	protected JPanel quantPane;
+	protected JLabel JLmatricule;
+	protected JComboBox<String> JCmatricule;
 	protected JLabel JLquantity;
 	protected JTextField JTquantity;
-	protected JButton JBsend;
+	protected JButton JBajouter;
+	protected JButton JBretirer;
 	
 	protected MenuPrincipal mainFrame;
 	
-	public JIFMedicamentStock(MenuPrincipal mainFrame)
+	public JIFMedicamentStock(MenuPrincipal mainFrame, String depotLegal, String matricule)
 	{
 		this.mainFrame = mainFrame;
 		
 		this.setLayout(new BorderLayout());
 		GridBagConstraints constraint = new GridBagConstraints();
 		
-		medocPane = new JPanel(new GridBagLayout());
-		this.add(medocPane, BorderLayout.LINE_START);
-		
-		lesMedocs = MedicamentService.recupListe();
-		int nbLignes = lesMedocs.size();
-		int i = 0;
-		String[][] data = new String[nbLignes][2] ;
-		for (Map.Entry<String, Medicament> uneEntree : lesMedocs.entrySet())
-		{
-			data[i][0] = uneEntree.getValue().getDepotLegal();
-			data[i][1] = uneEntree.getValue().getNomCommercial();
-			i ++;
-		}
-		String[] columnNamesMedoc = {"Dépôt Légal", "Nom Commercial"};
-		medocTable = new JTable(data, columnNamesMedoc);
-		medocTable.getSelectionModel().addListSelectionListener(this);
-		
-		medocListPane = new JScrollPane();
-		medocListPane.setPreferredSize(new Dimension(400, 100));
-		medocListPane.setMinimumSize(new Dimension(100, 60));
-		
-		JLmedoc = new JLabel("Médicament");
-		JTmedoc = new JTextField();
-		
-		constraint = new GridBagConstraints();
-		
-		constraint.gridx = 0;
-		constraint.gridy = 0;
-		visitPane.add(medocListPane, constraint);
-		constraint.gridy = 1;
-		visitPane.add(JLmedoc, constraint);
-		constraint.gridy = 2;
-		visitPane.add(JTmedoc, constraint);
-		
-		
-		
 		visitPane = new JPanel(new GridBagLayout());
-		this.add(visitPane, BorderLayout.LINE_END);
+		this.add(visitPane, BorderLayout.PAGE_START);
 		
-		lesVisiteurs = VisiteurService.recupListe();
-		nbLignes = lesMedocs.size();
-		i = 0;
-		data = new String[nbLignes][2] ;
-		for (Map.Entry<String, Visiteur> uneEntree : lesVisiteurs.entrySet())
+		lesStocks = StockerService.getStocksMedicament(depotLegal);
+		int nbLignes = lesStocks.size();
+		int i = 0;
+		String[][] data = new String[nbLignes][4] ;
+		for (Map.Entry<String, Stocker> uneEntree : lesStocks.entrySet())
 		{
-			data[i][0] = uneEntree.getValue().getMatricule();
-			data[i][1] = uneEntree.getValue().getNom();
-			data[i][2] = uneEntree.getValue().getPrenom();
+			data[i][0] = uneEntree.getKey();
+			data[i][1] = uneEntree.getValue().getUnVisiteur().getNom();
+			data[i][2] = uneEntree.getValue().getUnVisiteur().getPrenom();
+			data[i][3] = Integer.toString(uneEntree.getValue().getQteStock());
 			i ++;
 		}
-		String[] columnNamesVisit = {"Matricule", "Nom", "Prénom"};
+		String[] columnNamesVisit = {"Matricule", "Nom", "Prénom", "Quantité"};
 		visitTable = new JTable(data, columnNamesVisit);
 		visitTable.getSelectionModel().addListSelectionListener(this);
 		
-		JLvisit = new JLabel("Visiteur");
-		JTvisit = new JTextField();
+		JLdepotLegal = new JLabel("Dépôt Légal");
+		JCdepotLegal = new JComboBox<String>();
+		TreeMap<String, Medicament> lesMedocs = MedicamentService.recupListe();
+		for(String key : lesMedocs.keySet())
+			JCdepotLegal.addItem(key);
+		JCdepotLegal.setSelectedItem(depotLegal);
+		JCdepotLegal.addActionListener(this);
 		
-		visitListPane = new JScrollPane();
+		visitListPane = new JScrollPane(visitTable);
 		visitListPane.setPreferredSize(new Dimension(400, 100));
 		visitListPane.setMinimumSize(new Dimension(100, 60));
 		
@@ -137,56 +107,70 @@ public class JIFMedicamentStock extends JInternalFrame implements ListSelectionL
 		
 		constraint.gridx = 0;
 		constraint.gridy = 0;
-		visitPane.add(visitListPane, constraint);
+		visitPane.add(JLdepotLegal, constraint);
 		constraint.gridy = 1;
-		visitPane.add(JLvisit, constraint);
+		visitPane.add(JCdepotLegal, constraint);
 		constraint.gridy = 2;
-		visitPane.add(JTvisit, constraint);
-		
-		
+		visitPane.add(visitListPane, constraint);
 		
 		quantPane = new JPanel(new GridBagLayout());
-		this.add(quantPane, BorderLayout.PAGE_END);
+		this.add(quantPane, BorderLayout.CENTER);
 		
+		JLmatricule = new JLabel("Matricule");
+		JCmatricule = new JComboBox<String>();
+		TreeMap<String, Visiteur> lesVisiteurs = VisiteurService.recupListe();
+		for(String key : lesVisiteurs.keySet())
+			JCmatricule.addItem(key);
+		JCmatricule.setSelectedItem(matricule);
 		JLquantity = new JLabel("Quantité");
-		JTquantity = new JTextField();
-		JBsend = new JButton("Envoyer");
-		JBsend.addActionListener(this);
+		JTquantity = new JTextField(10);
+		JBajouter = new JButton("Ajouter");
+		JBajouter.addActionListener(this);
+		JBretirer = new JButton("Retirer");
+		JBretirer.addActionListener(this);
 		
 		constraint = new GridBagConstraints();
 		
+		constraint.insets = new Insets(0,10,0,10);
+		constraint.gridheight = 1;
 		constraint.gridx = 0;
-		constraint.gridy = 0;
-		quantPane.add(JLquantity, constraint);
+		constraint.gridy = 1;
+		quantPane.add(JLmatricule, constraint);
+		constraint.gridheight = 2;
+		constraint.gridy = 2;
+		quantPane.add(JCmatricule, constraint);
+		constraint.gridheight = 1;
+		constraint.gridx = 1;
 		constraint.gridy = 1;
 		quantPane.add(JLquantity, constraint);
+		constraint.gridheight = 2;
 		constraint.gridy = 2;
-		quantPane.add(JBsend, constraint);
-		
-		
+		quantPane.add(JTquantity, constraint);
+		constraint.gridheight = 1;
+		constraint.gridx = 2;
+		constraint.gridy = 1;
+		quantPane.add(JBajouter, constraint);
+		constraint.gridy = 2;
+		quantPane.add(JBretirer, constraint);
 		
 	}
 	
 	private Stocker getStockSaisie()
 	{
-		Visiteur leVisiteur = lesVisiteurs.get(JTvisit.getText());
-		Medicament leMedoc = lesMedocs.get(JTmedoc.getText());
-		int quantite = Integer.parseInt(JTquantity.getText());
-		Stocker leStock = new Stocker(quantite, leVisiteur, leMedoc);
-		return leStock;
+		int quantity = Integer.parseInt(JTquantity.getText());
+		String matricule = (String) JCmatricule.getSelectedItem();
+		Visiteur unVisiteur = VisiteurService.rechercherVisiteur(matricule);
+		String depotLegal = (String) JCdepotLegal.getSelectedItem();
+		Medicament unMedoc = MedicamentService.rechercher(depotLegal);
+		Stocker unStock = new Stocker(quantity, unVisiteur, unMedoc);
+		return unStock;
+		
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		Object source = e.getSource();
-		if(source == visitTable)
-		{
-			JTvisit.setText((String)visitTable.getValueAt(visitTable.getSelectedRow(), 0));
-		}
-		if(source == medocTable)
-		{
-			JTmedoc.setText((String)medocTable.getValueAt(medocTable.getSelectedRow(), 0));
-		}
+		
+		JCmatricule.setSelectedItem((String)visitTable.getValueAt(visitTable.getSelectedRow(), 0));
 		
 	}
 
@@ -194,9 +178,21 @@ public class JIFMedicamentStock extends JInternalFrame implements ListSelectionL
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		
-		if(source == JBsend)
+		if(source == JBajouter)
 		{
-			StockerService.modifier(getStockSaisie());
+			StockerService.ajouter(getStockSaisie());
+			mainFrame.ouvrirFenetre(new JIFMedicamentStock(mainFrame, (String) JCdepotLegal.getSelectedItem(), (String) JCmatricule.getSelectedItem()));
+		}
+		
+		if(source == JBretirer)
+		{
+			StockerService.retirer(getStockSaisie());
+			mainFrame.ouvrirFenetre(new JIFMedicamentStock(mainFrame, (String) JCdepotLegal.getSelectedItem(), (String) JCmatricule.getSelectedItem()));
+		}
+		
+		if(source == JCdepotLegal)
+		{
+			mainFrame.ouvrirFenetre(new JIFMedicamentStock(mainFrame, (String) JCdepotLegal.getSelectedItem(), (String) JCmatricule.getSelectedItem()));
 		}
 		
 	}

@@ -37,8 +37,12 @@ public class OffrirService {
 				throw new Exception("Vous avez déjà offert le nombre maximal de médicaments.");
 			if(uneOffre.getUnMedicament() == null || uneOffre.getUneVisite() == null || uneOffre.getQteOfferte() == 0)
 				throw new Exception("Aucun champ ne peut être null ou égal à 0.");
-			if(StockerService.getStock(uneOffre.getUneVisite().getUnVisiteur().getMatricule(), uneOffre.getUnMedicament().getDepotLegal()) >= uneOffre.getQteOfferte())
+			int stock = StockerService.getStock(uneOffre.getUneVisite().getUnVisiteur().getMatricule(), uneOffre.getUnMedicament().getDepotLegal());
+			if( stock < uneOffre.getQteOfferte())
+			{
+				System.out.println("Il y a " + stock + " " + uneOffre.getUnMedicament().getNomCommercial() + " dans les stocks de " + uneOffre.getUneVisite().getUnVisiteur().getNom() + " " + uneOffre.getUneVisite().getUnVisiteur().getPrenom());
 				throw new Exception("Vous voulez donner plus de médicaments qu'il n'y en a de disponible dans vos stocks.");
+			}
 			if(!StockerDao.retirer(new Stocker(uneOffre.getQteOfferte(), uneOffre.getUneVisite().getUnVisiteur(), uneOffre.getUnMedicament())))
 				throw new Exception("Echec du retrait du stock de medicaments.");
 			if(!OffrirDao.insert(uneOffre))

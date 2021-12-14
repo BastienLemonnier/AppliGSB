@@ -84,8 +84,10 @@ public class JIFVisiteMaj extends JInternalFrame implements ActionListener {
 		JTcommentaire.setMaximumSize(JTcommentaire.getPreferredSize());
 		JTmatricule = new JTextField(4);
 		JTmatricule.setMaximumSize(JTmatricule.getPreferredSize());
+		JTmatricule.setEditable(false);
 		JTcodeMedecin = new JTextField(4);
 		JTcodeMedecin.setMaximumSize(JTcodeMedecin.getPreferredSize());
+		JTcodeMedecin.setEditable(false);
 		
 		GridBagConstraints constraint = new GridBagConstraints();
 		constraint.fill = GridBagConstraints.HORIZONTAL;
