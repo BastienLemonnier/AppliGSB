@@ -11,17 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import gsb.modele.Medecin;
 import gsb.modele.Medicament;
-import gsb.modele.Visite;
-import gsb.modele.Visiteur;
-import gsb.service.MedecinService;
 import gsb.service.MedicamentService;
-import gsb.service.VisiteService;
-import gsb.service.VisiteurService;
 
 /**
  * @author LEMONNIER Bastien

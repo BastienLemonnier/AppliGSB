@@ -89,6 +89,8 @@ public class JIFVisiteRecapitulatif extends JInternalFrame implements ActionList
 		JTcodeMedecin.setEditable(false);
 		JTcommentaire = new JTextArea(5, 20);
 		JTcommentaire.setMaximumSize(JTcommentaire.getPreferredSize());
+		JTcommentaire.setLineWrap(true);
+		JTcommentaire.setWrapStyleWord(true);
 		JTcommentaire.setEditable(false);
 		
 		GridBagConstraints constraint = new GridBagConstraints();
@@ -105,6 +107,7 @@ public class JIFVisiteRecapitulatif extends JInternalFrame implements ActionList
 		pTexte.add(JLcodeMedecin, constraint);
 		constraint.gridy = 4;
 		pTexte.add(JLcommentaire, constraint);
+		
 		constraint.gridx = 1;
 		constraint.gridy = 0;
 		pTexte.add(JCreference, constraint);

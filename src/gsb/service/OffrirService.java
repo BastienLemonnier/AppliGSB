@@ -11,7 +11,7 @@ import gsb.utils.ServiceUtils;
 
 public class OffrirService {
 	
-	public static Offrir rechercher(String matricule)
+	/*private static Offrir rechercher(String matricule)
 	{
 		Offrir uneOffre =  null;
 		try {
@@ -26,7 +26,7 @@ public class OffrirService {
 			System.out.println( e.getMessage());
 		}
 		return uneOffre;
-	}
+	}*/
 	
 	public static boolean inserer(Offrir uneOffre)
 	{
@@ -45,7 +45,7 @@ public class OffrirService {
 			}
 			if(!StockerDao.retirer(new Stocker(uneOffre.getQteOfferte(), uneOffre.getUneVisite().getUnVisiteur(), uneOffre.getUnMedicament())))
 				throw new Exception("Echec du retrait du stock de medicaments.");
-			if(!OffrirDao.insert(uneOffre))
+			if(!OffrirDao.ajoutStock(uneOffre))
 				throw new Exception("Echec de l'insertion de l'offre.");
 			
 		}

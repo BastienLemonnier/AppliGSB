@@ -58,7 +58,11 @@ public class JIFVisiteAjout extends JInternalFrame implements ActionListener {
 	protected JComboBox<String> JCmatricule;
 	protected JComboBox<String> JCcodeMedecin;
 	
-	public JIFVisiteAjout() {
+	protected MenuPrincipal leMenu;
+	
+	public JIFVisiteAjout(MenuPrincipal leMenu) {
+		this.leMenu = leMenu;
+		
 		p = new JPanel(new GridBagLayout()); // panneau principal de la fenêtre
 		pBoutons = new JPanel(); // panneau supportant les boutons
 		pTexte = new JPanel(new GridBagLayout());
@@ -160,7 +164,9 @@ public class JIFVisiteAjout extends JInternalFrame implements ActionListener {
 		Object source = e.getSource();
 		if(source == ajouter)
 		{
-			VisiteService.ajouterVisite(recupVisiteDuText());
+			Visite laVisite = recupVisiteDuText();
+			VisiteService.ajouterVisite(laVisite);
+			leMenu.ouvrirFenetre(new JIFVisiteRecapitulatif(leMenu, laVisite));
 		}
 	}
 

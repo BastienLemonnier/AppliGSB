@@ -82,6 +82,7 @@ public class JIFVisiteMaj extends JInternalFrame implements ActionListener {
 		JTdateVisite.setMaximumSize(JTdateVisite.getPreferredSize());
 		JTcommentaire = new JTextArea(5, 20);
 		JTcommentaire.setMaximumSize(JTcommentaire.getPreferredSize());
+		JTcommentaire.setLineWrap(true);
 		JTmatricule = new JTextField(4);
 		JTmatricule.setMaximumSize(JTmatricule.getPreferredSize());
 		JTmatricule.setEditable(false);

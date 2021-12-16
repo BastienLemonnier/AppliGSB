@@ -10,12 +10,12 @@ import gsb.modele.Visite;
 
 public class OffrirDao {
 	
-	public static Offrir rechercher(String depotLegal)
+	public static Offrir rechercher(String depotLegal, String reference)
 	{
 		Offrir uneOffre = null;
 		Medicament unMedoc = null;
 		Visite uneVisite = null;
-		String req = "SELECT * FROM OFFRIR where MED_DEPOTLEGAL = '" + depotLegal + "';";
+		String req = "SELECT * FROM OFFRIR where MED_DEPOTLEGAL = '" + depotLegal + "' AND REFERENCE='" + reference + "';";
 		ResultSet resultat = ConnexionMySql.execReqSelection(req);
 		
 		try {
@@ -33,7 +33,59 @@ public class OffrirDao {
 		return uneOffre;
 	}
 	
-	public static boolean insert(Offrir uneOffre)
+	private static boolean offreExists(String depotLegal, String reference)
+	{
+		boolean success = false;
+		
+		String req = "SELECT EXISTS(SELECT * FROM OFFRIR WHERE MED_DEPOTLEGAL='" + depotLegal + "' AND REFERENCE='" + reference + "');";
+		ResultSet resultat = ConnexionMySql.execReqSelection(req);
+		
+		try {
+			if(resultat.next())
+			{
+				boolean leSucces = resultat.getBoolean(1);
+				if(leSucces)
+					success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return success;
+	}
+	
+	public static boolean ajoutStock(Offrir uneOffre)
+	{
+		boolean success = false;
+		
+		if(offreExists(uneOffre.getUnMedicament().getDepotLegal(), uneOffre.getUneVisite().getReference()))
+		{
+			Offrir ancienneOffre = rechercher(uneOffre.getUnMedicament().getDepotLegal(), uneOffre.getUneVisite().getReference());
+			uneOffre.setQteOfferte(uneOffre.getQteOfferte() + ancienneOffre.getQteOfferte());
+			success = update(uneOffre);
+		}
+		else
+		{
+			success = insert(uneOffre);
+		}
+		
+		return success;
+	}
+	
+	private static boolean update(Offrir uneOffre)
+	{
+		boolean success = false;
+		
+		String req = "UPDATE OFFRIR SET QTTDON='" + uneOffre.getQteOfferte() + "' WHERE MED_DEPOTLEGAL='" + uneOffre.getUnMedicament().getDepotLegal() + "' AND REFERENCE='" + uneOffre.getUneVisite().getReference() + "';";
+		
+		if(ConnexionMySql.execReqMaj(req) == 1)
+			success = true;
+		
+		return success;
+	}
+	
+	private static boolean insert(Offrir uneOffre)
 	{
 		boolean success = false;
 		

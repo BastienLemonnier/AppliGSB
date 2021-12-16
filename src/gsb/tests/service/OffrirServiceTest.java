@@ -40,21 +40,6 @@ public class OffrirServiceTest extends TestCase {
 	}
 	
 	@Test
-	public final void testRechercherOffrirNull () {
-		assertNull("Resultat recherche : ", OffrirService.rechercher(null));
-	}
-	
-	@Test
-	public final void testRechercherOffrirNonExistant() {
-		assertNull("Resultat recherche : ", OffrirService.rechercher("v0025"));
-	}
-	
-	@Test
-	public final void testRechercherOffrirExistant() {
-		assertNotNull("Resultat recherche : ", OffrirService.rechercher("v0017"));
-	}
-	
-	@Test
 	public final void testInsererOffrirNull() {
 		assertEquals("Resultat insertion : ", false, OffrirService.inserer(new Offrir(null, null, 0)));
 	}
