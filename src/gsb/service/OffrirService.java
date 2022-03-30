@@ -33,7 +33,7 @@ public class OffrirService {
 		boolean success = true;
 		try
 		{
-			if(getNombreOffresVisite(uneOffre.getUneVisite()) >= 2)
+			if(getNombreOffresVisite(uneOffre.getUneVisite()) >= 2 && !OffrirDao.offreExists(uneOffre.getUnMedicament().getDepotLegal(), uneOffre.getUneVisite().getReference()))
 				throw new Exception("Vous avez déjà offert le nombre maximal de médicaments.");
 			if(uneOffre.getUnMedicament() == null || uneOffre.getUneVisite() == null || uneOffre.getQteOfferte() == 0)
 				throw new Exception("Aucun champ ne peut être null ou égal à 0.");

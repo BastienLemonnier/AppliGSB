@@ -33,7 +33,7 @@ public class OffrirDao {
 		return uneOffre;
 	}
 	
-	private static boolean offreExists(String depotLegal, String reference)
+	public static boolean offreExists(String depotLegal, String reference)
 	{
 		boolean success = false;
 		

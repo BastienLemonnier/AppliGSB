@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -165,8 +166,15 @@ public class JIFVisiteAjout extends JInternalFrame implements ActionListener {
 		if(source == ajouter)
 		{
 			Visite laVisite = recupVisiteDuText();
-			VisiteService.ajouterVisite(laVisite);
-			leMenu.ouvrirFenetre(new JIFVisiteRecapitulatif(leMenu, laVisite));
+			if(VisiteService.ajouterVisite(laVisite))
+			{
+				leMenu.ouvrirFenetre(new JIFVisiteRecapitulatif(leMenu, laVisite));
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(leMenu, "Echec lors de l'ajout de la Visite !");
+			}
+			
 		}
 	}
 

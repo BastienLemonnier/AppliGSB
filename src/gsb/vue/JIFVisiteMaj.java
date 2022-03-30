@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -163,8 +164,14 @@ public class JIFVisiteMaj extends JInternalFrame implements ActionListener {
 		Object source = e.getSource();
 		if(source == maj)
 		{
-			VisiteService.majVisite(recupVisiteDuText());
-			fenetreContainer.ouvrirFenetre(new JIFVisiteRecapitulatif(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
+			if(VisiteService.majVisite(recupVisiteDuText()))
+			{
+				fenetreContainer.ouvrirFenetre(new JIFVisiteRecapitulatif(fenetreContainer, VisiteService.rechercherVisite(JTreference.getText())));
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(fenetreContainer, "Echec lors de la modification de la Visite !");
+			}
 		}
 		if(source == offres)
 		{
