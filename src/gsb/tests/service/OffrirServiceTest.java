@@ -26,7 +26,7 @@ public class OffrirServiceTest extends TestCase {
 	
 	private Medicament leMedicament = MedicamentService.rechercher("BACTI10G");
 	private Visite laVisite = VisiteService.rechercherVisite("v0017");
-	private Offrir uneOffre = new Offrir(leMedicament, laVisite, 10);
+	//private Offrir uneOffre = new Offrir(leMedicament, laVisite, 10);
 	
 	@Before
 	protected void setUp() throws Exception {

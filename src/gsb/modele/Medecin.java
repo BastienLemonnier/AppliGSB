@@ -184,7 +184,7 @@ public class Medecin {
 
 	/**
 	 * Setter du la localité du médecin
-	 * @param uneLocalite nouvelle localité du médecin
+	 * @param laLocalite nouvelle localité du médecin
 	 */
 	public void setLaLocalite(Localite laLocalite) {
 		this.laLocalite = laLocalite;
