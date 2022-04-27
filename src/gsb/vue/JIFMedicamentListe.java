@@ -27,7 +27,7 @@ private static final long serialVersionUID = 3630L;
 	private TreeMap<String,Medicament> dicoMedicament;
 
 
-	protected JPanel p;
+	protected JPanel p; //panel principal
 	
 	protected JScrollPane scrollPane;
 	
