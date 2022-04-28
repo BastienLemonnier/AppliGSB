@@ -11,7 +11,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import gsb.modele.Medecin;
+import gsb.modele.Medicament;
 import gsb.modele.dao.MedecinDao;
+import gsb.modele.dao.MedicamentDao;
 import gsb.utils.ServiceUtils;
 
 /**
@@ -51,6 +53,22 @@ public class MedecinService {
 		}
 		
 		return lesMedecins;
+	}
+	
+	public static boolean ajouterMedecin(Medecin unMedecin) {
+			boolean success = false;
+			try
+			{
+				if(rechercherMedecin(unMedecin.getCodeMed()) != null)
+					throw new Exception("Le code médecin ne correspond pas au format M000 ou ce code médecin existe deja");
+				MedecinDao.addMedecin(unMedecin);
+				success = true;
+			}
+			catch(Exception e)
+			{
+				System.out.println(e.getMessage());
+			}
+			return success;
 	}
 	
 }

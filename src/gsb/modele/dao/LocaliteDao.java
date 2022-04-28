@@ -6,8 +6,10 @@
 package gsb.modele.dao;
 
 import java.sql.ResultSet;
+import java.util.TreeMap;
 
 import gsb.modele.Localite;
+import gsb.modele.Visite;
 
 /**
  * @author LEMONNIER Bastien
@@ -29,6 +31,29 @@ public class LocaliteDao {
 			}
 		ConnexionMySql.fermerConnexionBd();
 		return uneLocalite;
+	}
+	
+	public static TreeMap<String, Localite>dicoLocalites()
+	{
+		TreeMap<String, Localite> dicoLocalites = new TreeMap<String, Localite>();
+		
+		String req = "SELECT * FROM LOCALITE;";
+		ResultSet results = ConnexionMySql.execReqSelection(req);
+		
+		try {
+			while(results.next())
+			{
+				String codePostal = results.getString(1);
+				String nomVille = results.getString(2);
+				Localite uneLocalite = new Localite(codePostal, nomVille);
+				dicoLocalites.put(codePostal, uneLocalite);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Erreur dico visites.");
+		}
+		
+		return dicoLocalites;
 	}
 	
 }

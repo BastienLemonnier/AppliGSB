@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import gsb.modele.Localite;
 import gsb.modele.Medecin;
+import gsb.modele.Medicament;
+import gsb.modele.Visite;
 
 /**
  * @author LEMONNIER Bastien
@@ -75,6 +77,24 @@ public class MedecinDao {
 			System.out.println("erreur retournerDiccoDesMedecins()");
 		}
 		return diccoDesMedecins;
+	}
+	
+	public static boolean addMedecin(Medecin unMedecin)
+	{
+		boolean success = false;
+		String req = "INSERT INTO MEDECIN VALUES ('" + unMedecin.getCodeMed() + "', '" + unMedecin.getNom() + "', '" + unMedecin.getPrenom() + "', '" + unMedecin.getAdresse() + "', '" + unMedecin.getLaLocalite().getCodePostal() + "', '" + unMedecin.getTelephone()  + "', '" + unMedecin.getPotentiel() + "', '" + unMedecin.getSpecialite() + "');";
+		try
+		{
+			if(ConnexionMySql.execReqMaj(req) == 1)
+			{
+				success = true;
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println("Erreur lors de l'ajout du Medecin!");
+		}
+		return success;
 	}
 	
 }
