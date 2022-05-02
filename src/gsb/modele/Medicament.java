@@ -35,6 +35,10 @@ public class Medicament {
 	 */
 	protected String libelleFamille;
 	
+	protected int nmbConditionnements;
+	
+	protected String dc;
+	
 	/**
 	 * Constructeur du medicament
 	 * @param depotLegal
@@ -46,7 +50,7 @@ public class Medicament {
 	 * @param libelleFamille
 	 */
 	public Medicament(String depotLegal, String nomCommercial, String composition, String effets, float prixEchantillon,
-			String codeFamille, String libelleFamille) {
+			String codeFamille, String libelleFamille, int nmbConditionnements, String dc) {
 		super();
 		this.depotLegal = depotLegal;
 		this.nomCommercial = nomCommercial;
@@ -55,6 +59,24 @@ public class Medicament {
 		this.prixEchantillon = prixEchantillon;
 		this.codeFamille = codeFamille;
 		this.libelleFamille = libelleFamille;
+		this.nmbConditionnements = nmbConditionnements;
+		this.dc = dc;
+	}
+
+	public int getNmbConditionnements() {
+		return nmbConditionnements;
+	}
+
+	public void setNmbConditionnements(int nmbConditionnements) {
+		this.nmbConditionnements = nmbConditionnements;
+	}
+
+	public String getDc() {
+		return dc;
+	}
+
+	public void setDc(String dc) {
+		this.dc = dc;
 	}
 
 	/**

@@ -8,6 +8,25 @@ import gsb.modele.Medicament;
 
 public class MedicamentDao {
 	
+	public static int recupNmbConditionnement(String depotLegal)
+	{
+		int nmb = 0;
+		String req = "SELECT COUNT(*) FROM CONDITIONNEMENT WHERE DepotLegal='" + depotLegal + "';";
+		ResultSet resultat = ConnexionMySql.execReqSelection(req);
+		
+		try {
+			if(resultat.next())
+			{
+				nmb = resultat.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return nmb;
+	}
+	
 	public static Medicament rechercher(String depotLegal) {
 		
 		Medicament unMedoc = null;
@@ -24,8 +43,10 @@ public class MedicamentDao {
 				float prixEchant = resultat.getFloat(6);
 				String code = resultat.getString(7);
 				String libelle = resultat.getString(8);
+				int nmbCond = recupNmbConditionnement(depotLegal);
+				String dc = resultat.getString(9);
 				
-				unMedoc = new Medicament(depotLegal, nomCom, compo, effets, prixEchant, code, libelle);
+				unMedoc = new Medicament(depotLegal, nomCom, compo, effets, prixEchant, code, libelle, nmbCond, dc);
 			}
 			
 		} catch (SQLException e) {
@@ -52,8 +73,10 @@ public class MedicamentDao {
 				float prixEchant = resultat.getFloat(6);
 				String code = resultat.getString(7);
 				String libelle = resultat.getString(8);
+				int nmbCond = recupNmbConditionnement(depleg);
+				String dc = resultat.getString(9);
 				
-				Medicament unMedicament = new Medicament(depleg, nomCom, compo, effets, prixEchant, code, libelle);
+				Medicament unMedicament = new Medicament(depleg, nomCom, compo, effets, prixEchant, code, libelle, nmbCond, dc);
 				lesMedicaments.put(depleg, unMedicament);
 			}
 			

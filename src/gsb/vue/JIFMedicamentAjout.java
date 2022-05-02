@@ -164,7 +164,8 @@ public class JIFMedicamentAjout extends JInternalFrame implements ActionListener
 		float prix = Float.valueOf(JTprix.getText());
 		String libelle = JTlibelle.getText();
 		String codFam = JTcodFam.getText();
-		Medicament unMedicament = new Medicament(DepotLegal, nomCom, effet, comp, prix, libelle, codFam);
+		String dc = "";
+		Medicament unMedicament = new Medicament(DepotLegal, nomCom, effet, comp, prix, libelle, codFam, 0, dc);
 		return unMedicament;
 	}
 

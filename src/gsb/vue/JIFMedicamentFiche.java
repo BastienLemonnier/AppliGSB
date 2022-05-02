@@ -14,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import gsb.modele.Medicament;
@@ -33,17 +32,25 @@ public class JIFMedicamentFiche extends JInternalFrame {
 	protected JButton modifier;
 	protected JButton offres;
 	
-	protected JLabel JLreference;
-	protected JLabel JLdateVisite;
-	protected JLabel JLmatricule;
-	protected JLabel JLcodeMedecin;
-	protected JLabel JLcommentaire;
+	protected JLabel JLdepotLegal;
+	protected JLabel JLnomCommercial;
+	protected JLabel JLcomposition;
+	protected JLabel JLeffets;
+	protected JLabel JLcontreIndications;
+	protected JLabel JLcodeFamille;
+	protected JLabel JLlibelleFamille;
+	protected JLabel JLnmbCond;
+	protected JLabel JLdc;
 	
-	protected JTextField JTreference;
-	protected JTextField JTdateVisite;
-	protected JTextField JTmatricule;
-	protected JTextField JTcodeMedecin;
-	protected JTextArea JTcommentaire;
+	protected JTextField JTdepotLegal;
+	protected JTextField JTnomCommercial;
+	protected JTextField JTcomposition;
+	protected JTextField JTeffets;
+	protected JTextField JTcontreIndications;
+	protected JTextField JTcodeFamille;
+	protected JTextField JTlibelleFamille;
+	protected JTextField JTnmbCond;
+	protected JTextField JTdc;
 	
 	protected MenuPrincipal fenetreContainer;
 	
@@ -53,52 +60,77 @@ public class JIFMedicamentFiche extends JInternalFrame {
 		pBoutons = new JPanel(); // panneau supportant les boutons
 		pTexte = new JPanel(new GridBagLayout());
 		
-		JLreference = new JLabel("Dépot Legal");
-		JLdateVisite = new JLabel("Nom Commercial");
-		JLmatricule = new JLabel("Nom Molécule");
-		JLcodeMedecin = new JLabel("Code");
-		JLcommentaire = new JLabel("Libelle");
+		JLdepotLegal = new JLabel("Dépot Legal");
+		JLnomCommercial = new JLabel("Nom Commercial");
+		JLcomposition = new JLabel("Composition");
+		JLeffets = new JLabel("Effets");
+		JLcontreIndications = new JLabel("Contre Indications");
+		JLcodeFamille = new JLabel("Code Famille");
+		JLlibelleFamille = new JLabel("Libelle Famille");
+		JLnmbCond = new JLabel("Nombre de conditionnements");
+		JLdc = new JLabel("DC");
+
+		//JTcommentaire.setMaximumSize(JTcommentaire.getPreferredSize());
+		JTdepotLegal = new JTextField(10);
+		JTnomCommercial = new JTextField(20);
+		JTnomCommercial.setEditable(false);
+		JTcomposition = new JTextField(20);
+		JTcomposition.setEditable(false);
+		JTeffets = new JTextField(20);
+		JTeffets.setEditable(false);
+		JTcontreIndications = new JTextField(20);
+		JTcontreIndications.setEditable(false);
+		JTcodeFamille = new JTextField(20);
+		JTcodeFamille.setEditable(false);
+		JTlibelleFamille = new JTextField(20);
+		JTlibelleFamille.setEditable(false);
+		JTnmbCond = new JTextField(20);
+		JTnmbCond.setEditable(false);
+		JTdc = new JTextField(20);
+		JTdc.setEditable(false);
 		
-		JTreference = new JTextField(5);
-		JTreference.setMaximumSize(JTreference.getPreferredSize());
-		JTdateVisite = new JTextField(10);
-		JTdateVisite.setMaximumSize(JTdateVisite.getPreferredSize());
-		JTdateVisite.setEditable(false);
-		JTmatricule = new JTextField(4);
-		JTmatricule.setMaximumSize(JTmatricule.getPreferredSize());
-		JTmatricule.setEditable(false);
-		JTcodeMedecin = new JTextField(4);
-		JTcodeMedecin.setMaximumSize(JTcodeMedecin.getPreferredSize());
-		JTcodeMedecin.setEditable(false);
-		JTcommentaire = new JTextArea(5, 20);
-		JTcommentaire.setMaximumSize(JTcommentaire.getPreferredSize());
-		JTcommentaire.setEditable(false);
 		
 		GridBagConstraints constraint = new GridBagConstraints();
 		constraint.fill = GridBagConstraints.HORIZONTAL;
 		constraint.insets = new Insets(2,10,2,10);
 		constraint.gridx = 0;
 		constraint.gridy = 0;
-		pTexte.add(JLreference, constraint);
+		pTexte.add(JLdepotLegal, constraint);
 		constraint.gridy = 1;
-		pTexte.add(JLdateVisite, constraint);
+		pTexte.add(JLnomCommercial, constraint);
 		constraint.gridy = 2;
-		pTexte.add(JLmatricule, constraint);
+		pTexte.add(JLcomposition, constraint);
 		constraint.gridy = 3;
-		pTexte.add(JLcodeMedecin, constraint);
+		pTexte.add(JLeffets, constraint);
 		constraint.gridy = 4;
-		pTexte.add(JLcommentaire, constraint);
+		pTexte.add(JLcontreIndications, constraint);
+		constraint.gridy = 5;
+		pTexte.add(JLcodeFamille, constraint);
+		constraint.gridy = 6;
+		pTexte.add(JLnmbCond, constraint);
+		constraint.gridy = 7;
+		pTexte.add(JLlibelleFamille, constraint);
+		constraint.gridy = 8;
+		pTexte.add(JLdc, constraint);
 		constraint.gridx = 1;
 		constraint.gridy = 0;
-		pTexte.add(JTreference, constraint);
+		pTexte.add(JTdepotLegal, constraint);
 		constraint.gridy = 1;
-		pTexte.add(JTdateVisite, constraint);
+		pTexte.add(JTnomCommercial, constraint);
 		constraint.gridy = 2;
-		pTexte.add(JTmatricule, constraint);
+		pTexte.add(JTcomposition, constraint);
 		constraint.gridy = 3;
-		pTexte.add(JTcodeMedecin, constraint);
+		pTexte.add(JTeffets, constraint);
 		constraint.gridy = 4;
-		pTexte.add(JTcommentaire, constraint);
+		pTexte.add(JTcontreIndications, constraint);
+		constraint.gridy = 5;
+		pTexte.add(JTcodeFamille, constraint);
+		constraint.gridy = 6;
+		pTexte.add(JTlibelleFamille, constraint);
+		constraint.gridy = 7;
+		pTexte.add(JTnmbCond, constraint);
+		constraint.gridy = 8;
+		pTexte.add(JTdc, constraint);
 		
 		// mise en forme de la fenêtre
 
@@ -118,10 +150,14 @@ public class JIFMedicamentFiche extends JInternalFrame {
 	
 	public void remplirText(Medicament unMedicament) 	
 	{ // méthode qui permet de remplir les zones de texte à partir des valeurs passées en paramètres
-		JTreference.setText(unMedicament.getDepotLegal());
-		JTdateVisite.setText(unMedicament.getNomCommercial());
-		JTmatricule.setText(unMedicament.getComposition());
-		JTcodeMedecin.setText(unMedicament.getCodeFamille());
-		JTcommentaire.setText(unMedicament.getLibelleFamille());
+		JTdepotLegal.setText(unMedicament.getDepotLegal());
+		JTnomCommercial.setText(unMedicament.getNomCommercial());
+		JTcomposition.setText(unMedicament.getComposition());
+		JTeffets.setText(unMedicament.getEffets());
+		JTcontreIndications.setText("");
+		JTcodeFamille.setText(unMedicament.getCodeFamille());
+		JTlibelleFamille.setText(unMedicament.getLibelleFamille());
+		JTnmbCond.setText(Integer.toString(unMedicament.getNmbConditionnements()));
+		JTdc.setText(unMedicament.getDc());
 	}
 }
