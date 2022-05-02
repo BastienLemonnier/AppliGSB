@@ -68,7 +68,7 @@ public class JIFMedicamentFiche extends JInternalFrame {
 		JLcodeFamille = new JLabel("Code Famille");
 		JLlibelleFamille = new JLabel("Libelle Famille");
 		JLnmbCond = new JLabel("Nombre de conditionnements");
-		JLdc = new JLabel("DC");
+		JLdc = new JLabel("Dénomination Commune");
 
 		//JTcommentaire.setMaximumSize(JTcommentaire.getPreferredSize());
 		JTdepotLegal = new JTextField(10);
@@ -107,9 +107,9 @@ public class JIFMedicamentFiche extends JInternalFrame {
 		constraint.gridy = 5;
 		pTexte.add(JLcodeFamille, constraint);
 		constraint.gridy = 6;
-		pTexte.add(JLnmbCond, constraint);
-		constraint.gridy = 7;
 		pTexte.add(JLlibelleFamille, constraint);
+		constraint.gridy = 7;
+		pTexte.add(JLnmbCond, constraint);
 		constraint.gridy = 8;
 		pTexte.add(JLdc, constraint);
 		constraint.gridx = 1;
